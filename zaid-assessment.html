@@ -1,0 +1,2283 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com https://api.ipify.org https://ipapi.co https://api64.ipify.org; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://api.ipify.org https://api64.ipify.org https://ipapi.co https://api.db-ip.com; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta name="referrer" content="no-referrer">
+<title>ZAID CORPORATION — Avaliação de Cargo Executivo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#FFFFFF;
+    --panel:#FFFFFF;
+    --panel-2:#F2F2F2;
+    --line:#D6D6D6;
+    --line-soft:#EAEAEA;
+    --text:#0A0A0A;
+    --text-dim:#5A5A5A;
+    --text-faint:#9A9A9A;
+    --brass:#000000;
+    --brass-soft:#6B6B6B;
+    --alert:#000000;
+    --alert-soft:#CCCCCC;
+    --ok:#000000;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--ink);
+    color:var(--text);
+    font-family:'IBM Plex Sans', sans-serif;
+    font-size:15px;
+    line-height:1.6;
+    min-height:100vh;
+  }
+  ::selection{background:#000;color:#fff;}
+  h1,h2,h3{
+    font-family:'Newsreader', serif;
+    font-weight:500;
+    margin:0;
+  }
+  .mono{font-family:'IBM Plex Mono', monospace;}
+  button{
+    font-family:'IBM Plex Sans', sans-serif;
+    cursor:pointer;
+  }
+  textarea{font-family:'IBM Plex Sans', sans-serif;}
+
+  /* ---------- utility ---------- */
+  .hidden{display:none !important;}
+  .stamp{
+    display:inline-block;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.08em;
+    color:var(--brass);
+    border:1px solid var(--brass-soft);
+    padding:3px 8px;
+  }
+
+  /* ---------- INTAKE SCREEN ---------- */
+  #intake{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:48px 24px;
+  }
+  .intake-card{
+    width:100%;
+    max-width:620px;
+  }
+  .intake-header{
+    border-bottom:1px solid var(--line);
+    padding-bottom:20px;
+    margin-bottom:32px;
+  }
+  .intake-header .stamp{margin-bottom:16px;}
+  .intake-header h1{
+    font-size:30px;
+    color:var(--text);
+    margin-top:10px;
+  }
+  .intake-header p{
+    color:var(--text-dim);
+    font-size:14px;
+    max-width:52ch;
+    margin-top:10px;
+  }
+  .field{margin-bottom:20px;}
+  .field label{
+    display:block;
+    font-size:12.5px;
+    color:var(--text-dim);
+    margin-bottom:7px;
+  }
+  .field input, .field select{
+    width:100%;
+    background:var(--panel);
+    border:1px solid var(--line);
+    color:var(--text);
+    padding:11px 12px;
+    font-size:14.5px;
+    outline:none;
+  }
+  .field input:focus, .field select:focus{border-color:var(--brass);}
+  .field input.invalid{border-color:#000;background:#FFF5F5;}
+  .field-error{font-size:11px;color:#000;background:#F2F2F2;border:1px solid #000;padding:6px 8px;margin-top:6px;font-family:'IBM Plex Mono',monospace;}
+  .field-error.hidden{display:none !important;}
+
+  .track-choice{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+  }
+  .track-option{
+    border:1px solid var(--line);
+    background:var(--panel);
+    padding:16px;
+    text-align:left;
+    color:var(--text);
+  }
+  .track-option:hover{border-color:var(--text-faint);}
+  .track-option.selected{border-color:var(--brass);background:var(--panel-2);}
+  .track-option .track-code{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    color:var(--brass);
+    letter-spacing:0.05em;
+  }
+  .track-option .track-name{
+    font-family:'Newsreader', serif;
+    font-size:19px;
+    margin-top:6px;
+  }
+  .track-option .track-desc{
+    font-size:12.5px;
+    color:var(--text-dim);
+    margin-top:6px;
+  }
+
+  .btn-primary{
+    width:100%;
+    background:#000000;
+    color:#FFFFFF;
+    border:1px solid #000;
+    padding:13px 16px;
+    font-size:14.5px;
+    font-weight:600;
+    margin-top:8px;
+  }
+  .btn-primary:disabled{background:#EAEAEA;color:#9A9A9A;border-color:#D6D6D6;cursor:not-allowed;}
+  .btn-primary:not(:disabled):hover{background:#1A1A1A;}
+
+  .link-quiet{
+    display:block;
+    text-align:center;
+    color:var(--text-dim);
+    font-size:13px;
+    margin-top:18px;
+    text-decoration:underline;
+    text-decoration-color:var(--line);
+    background:none;
+    border:none;
+    width:100%;
+  }
+  .link-quiet:hover{color:var(--text);}
+
+  /* ---------- ASSESSMENT SCREEN ---------- */
+  #assessment{
+    display:flex;
+    min-height:100vh;
+  }
+  .rail{
+    width:270px;
+    flex-shrink:0;
+    background:var(--panel);
+    border-right:1px solid var(--line);
+    padding:24px 20px;
+    display:flex;
+    flex-direction:column;
+  }
+  .rail-candidate{
+    border-bottom:1px solid var(--line);
+    padding-bottom:16px;
+    margin-bottom:16px;
+  }
+  .rail-candidate .name{font-family:'Newsreader', serif;font-size:18px;}
+  .rail-candidate .track{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    color:var(--brass);
+    margin-top:4px;
+  }
+  .rail-timer{
+    margin-bottom:20px;
+  }
+  .rail-timer .label{font-size:11px;color:var(--text-faint);text-transform:none;}
+  .rail-timer .value{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:22px;
+    margin-top:3px;
+  }
+  .case-list{list-style:none;margin:0;padding:0;flex:1;}
+  .case-item{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:10px 8px;
+    border-left:2px solid transparent;
+    font-size:13px;
+    color:var(--text-dim);
+    cursor:pointer;
+  }
+  .case-item.active{border-left-color:var(--brass);color:var(--text);background:var(--panel-2);}
+  .case-item .dot{
+    width:7px;height:7px;border-radius:50%;
+    background:var(--text-faint);
+    flex-shrink:0;
+  }
+  .case-item.done .dot{background:var(--ok);}
+  .case-item.expired .dot{background:var(--alert);}
+  .case-item .code{font-family:'IBM Plex Mono', monospace;font-size:12px;}
+
+  .rail-footer{
+    border-top:1px solid var(--line);
+    padding-top:16px;
+    margin-top:16px;
+  }
+  .btn-ghost{
+    width:100%;
+    background:none;
+    border:1px solid var(--line);
+    color:var(--text-dim);
+    padding:9px;
+    font-size:13px;
+  }
+  .btn-ghost:hover{border-color:var(--text-faint);color:var(--text);}
+
+  .main{
+    flex:1;
+    padding:44px 56px;
+    max-width:760px;
+  }
+  .case-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    border-bottom:1px solid var(--line);
+    padding-bottom:18px;
+    margin-bottom:24px;
+  }
+  .case-header .case-code{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    color:var(--brass);
+    letter-spacing:0.05em;
+  }
+  .case-header .case-type{
+    font-size:12px;
+    color:var(--text-dim);
+    margin-top:4px;
+  }
+  .question-timer{
+    text-align:right;
+  }
+  .question-timer .value{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:26px;
+  }
+  .question-timer .value.warn{color:var(--brass);}
+  .question-timer .value.critical{color:var(--alert);}
+  .question-timer .bar{
+    width:130px;
+    height:2px;
+    background:var(--line);
+    margin-top:8px;
+  }
+  .question-timer .bar-fill{
+    height:100%;
+    background:var(--brass);
+    width:100%;
+  }
+
+  .case-prompt{
+    font-family:'Newsreader', serif;
+    font-size:20px;
+    line-height:1.55;
+    color:var(--text);
+    margin-bottom:26px;
+    max-width:64ch;
+  }
+  .expired-banner{
+    border:1px solid var(--alert-soft);
+    background:rgba(168,64,75,0.08);
+    color:#D98D95;
+    padding:12px 14px;
+    font-size:13px;
+    margin-bottom:16px;
+  }
+  textarea.answer{
+    width:100%;
+    min-height:260px;
+    background:var(--panel);
+    border:1px solid var(--line);
+    color:var(--text);
+    padding:16px;
+    font-size:14.5px;
+    line-height:1.65;
+    resize:vertical;
+    outline:none;
+  }
+  textarea.answer:focus{border-color:var(--brass);}
+  textarea.answer:disabled{color:var(--text-dim);background:var(--panel-2);}
+
+  .char-count{
+    text-align:right;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    color:var(--text-faint);
+    margin-top:6px;
+  }
+
+  .nav-row{
+    display:flex;
+    justify-content:space-between;
+    margin-top:28px;
+  }
+  .btn-nav{
+    background:none;
+    border:1px solid var(--line);
+    color:var(--text);
+    padding:11px 22px;
+    font-size:13.5px;
+  }
+  .btn-nav:hover{border-color:var(--text-faint);}
+  .btn-nav:disabled{color:var(--text-faint);cursor:not-allowed;}
+  .btn-nav.primary{
+    background:#000000;
+    border-color:#000000;
+    color:#FFFFFF;
+    font-weight:600;
+  }
+  .btn-nav.primary:hover{background:#1A1A1A;}
+
+  /* ---------- REPORT SCREEN ---------- */
+  #report{
+    min-height:100vh;
+    padding:48px 56px;
+    max-width:880px;
+    margin:0 auto;
+  }
+  .report-head{
+    border-bottom:1px solid var(--line);
+    padding-bottom:22px;
+    margin-bottom:28px;
+  }
+  .report-head h1{font-size:26px;}
+  .report-meta{
+    display:flex;
+    gap:32px;
+    margin-top:16px;
+    flex-wrap:wrap;
+  }
+  .report-meta div .k{font-size:11px;color:var(--text-faint);}
+  .report-meta div .v{font-family:'IBM Plex Mono', monospace;font-size:14px;margin-top:3px;}
+
+  .report-item{
+    border:1px solid var(--line);
+    padding:20px 22px;
+    margin-bottom:16px;
+  }
+  .report-item-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:16px;
+  }
+  .report-item-head .code{font-family:'IBM Plex Mono', monospace;font-size:12px;color:var(--brass);}
+  .report-item-head .status{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+  }
+  .report-item-head .status.expired{color:var(--alert);}
+  .report-item-head .status.done{color:var(--ok);}
+  .report-prompt{font-size:13.5px;color:var(--text-dim);margin-top:10px;margin-bottom:14px;max-width:70ch;}
+  .report-answer{
+    font-size:14px;
+    white-space:pre-wrap;
+    border-top:1px solid var(--line-soft);
+    padding-top:14px;
+  }
+  .report-answer.empty{color:var(--text-faint);font-style:italic;}
+  .report-time{font-family:'IBM Plex Mono', monospace;font-size:11px;color:var(--text-faint);margin-top:12px;}
+
+  .report-actions{
+    display:flex;
+    gap:12px;
+    margin-top:8px;
+    margin-bottom:36px;
+  }
+  .save-msg{
+    font-size:13px;
+    color:var(--ok);
+    margin-top:10px;
+    display:none;
+  }
+
+  /* ---------- SAVED LIST SCREEN ---------- */
+  #saved{
+    min-height:100vh;
+    padding:48px 56px;
+    max-width:820px;
+    margin:0 auto;
+  }
+  .saved-item{
+    border:1px solid var(--line);
+    padding:16px 18px;
+    margin-bottom:10px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    cursor:pointer;
+  }
+  .saved-item:hover{border-color:var(--text-faint);}
+  .saved-item .name{font-family:'Newsreader', serif;font-size:16px;}
+  .saved-item .sub{font-size:12px;color:var(--text-dim);margin-top:3px;}
+  .saved-item .arrow{color:var(--text-faint);font-family:'IBM Plex Mono', monospace;}
+  .empty-state{color:var(--text-dim);font-size:14px;padding:32px 0;}
+
+  /* ---------- ANTI-COLA / SECURITY OVERLAYS — TEMA CLARO BRANCO E PRETO ---------- */
+  #fullscreenGate, #violationModal, #disqualifiedScreen{
+    position:fixed;inset:0;
+    background:rgba(255,255,255,0.96);
+    backdrop-filter:blur(4px);
+    z-index:9999;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:32px 20px;
+  }
+  .gate-card, .violation-card, .disq-card{
+    width:100%;max-width:560px;
+    background:#FFFFFF;
+    border:2px solid #000000;
+    padding:32px;
+    box-shadow:0 8px 32px rgba(0,0,0,0.12);
+  }
+  .gate-card h2, .violation-card h2, .disq-card h2{
+    font-family:'Newsreader', serif;
+    font-size:24px;
+    color:#000;
+    margin-bottom:10px;
+  }
+  .gate-card p, .violation-card p, .disq-card p{
+    color:#333333;
+    font-size:14px;
+    line-height:1.6;
+    margin:8px 0;
+  }
+  .violation-card{border-color:#000000;border-width:3px;}
+  .violation-card h2{letter-spacing:0.04em;}
+  .disq-card{border-color:#000000;background:#F5F5F5;}
+  .paste-toast{
+    position:fixed;
+    bottom:24px;left:50%;transform:translateX(-50%);
+    background:#000;color:#FFF;
+    padding:10px 18px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.06em;
+    border:1px solid #000;
+    z-index:9998;
+    display:none;
+  }
+  .paste-toast.show{display:block;animation:fadeIn 0.15s ease;}
+  @keyframes fadeIn{from{opacity:0;transform:translateX(-50%) translateY(6px);}to{opacity:1;transform:translateX(-50%) translateY(0);}}
+  /* bloqueia seleção fora do textarea? mantem mas desativa menu */
+  body.secure{ -webkit-user-select:none; user-select:none; }
+  body.secure textarea.answer{ -webkit-user-select:text; user-select:text; }
+  /* timer danger em P&B CLARO: preto como alerta */
+  .question-timer .value.warn{color:#000;background:#EAEAEA;padding:0 6px;border:1px solid #000;}
+  .question-timer .value.critical{color:#FFF;background:#000;padding:0 6px;}
+  .question-timer .bar-fill{background:#000;}
+  .expired-banner{
+    border:2px solid #000000;
+    background:#F2F2F2;
+    color:#000;
+  }
+  .case-item.expired .dot{background:#000;}
+  .case-item.done .dot{background:#000;}
+  .report-item-head .status.expired{color:#FFF;background:#000;border:1px solid #000;padding:2px 6px;}
+  .report-item-head .status.done{background:#000;color:#FFF;padding:2px 6px;}
+
+  @media print{
+    body *{display:none !important;}
+    body::after{content:"IMPRESSÃO BLOQUEADA — ZAID CORPORATION";display:block !important;position:fixed;inset:0;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:14px;color:#000;background:#FFF;}
+  }
+  @media (max-width:820px){
+    #assessment{flex-direction:column;}
+    .rail{width:100%;border-right:none;border-bottom:1px solid var(--line);flex-direction:row;flex-wrap:wrap;align-items:center;gap:16px;padding:16px 20px;}
+    .case-list{display:none;}
+    .rail-candidate, .rail-timer{margin:0;border:none;padding:0;}
+    .rail-footer{margin:0;border:none;padding:0;margin-left:auto;}
+    .main{padding:28px 20px;max-width:none;}
+    #report, #saved{padding:32px 20px;}
+    .track-choice{grid-template-columns:1fr;}
+  }
+  /* endurecimento extra: desabilita callout e seleção arrastável */
+  *{-webkit-touch-callout:none;}
+  textarea{-webkit-touch-callout:text;}
+  img{-webkit-user-drag:none;user-drag:none;}
+  /* marca d'água FICTÍCIO */
+  body::before{
+    content:"SIMULAÇÃO FICTÍCIA — NÃO CONTÉM DADOS REAIS";
+    position:fixed;
+    top:50%;left:50%;
+    transform:translate(-50%,-50%) rotate(-18deg);
+    font-family:'IBM Plex Mono',monospace;
+    font-size:14px;
+    letter-spacing:0.18em;
+    color:rgba(0,0,0,0.06);
+    pointer-events:none;
+    z-index:1;
+    white-space:nowrap;
+  }
+  body.secure::before{color:rgba(0,0,0,0.04);}
+  /* painel avaliador */
+  #evaluatorPanel{
+    position:fixed;inset:0;
+    background:rgba(255,255,255,0.98);
+    z-index:10000;
+    overflow:auto;
+    padding:32px 24px;
+    display:flex;
+    justify-content:center;
+  }
+  .eval-card{
+    width:100%;max-width:860px;
+    background:#FFF;
+    border:2px solid #000;
+    padding:28px;
+  }
+  .eval-card h2{font-family:'Newsreader',serif;font-size:22px;margin:0 0 8px;}
+  .eval-q{border:1px solid #D6D6D6;padding:16px;margin:14px 0;background:#F9F9F9;}
+  .eval-q .code{font-family:'IBM Plex Mono',monospace;font-size:12px;background:#000;color:#FFF;padding:2px 6px;}
+  .eval-q .crit{font-size:13px;color:#333;margin:8px 0 0 16px;}
+  .eval-q .crit li{margin:4px 0;}
+  .eval-q .peso{font-family:'IBM Plex Mono',monospace;font-size:11px;color:#555;margin-top:8px;}
+  /* admin panel */
+  #adminPanel{position:fixed;inset:0;background:rgba(255,255,255,0.98);z-index:10001;overflow:auto;padding:24px;display:flex;justify-content:center;}
+  .admin-card{width:100%;max-width:1100px;background:#FFF;border:2px solid #000;padding:24px;}
+  .admin-card h2{font-family:'Newsreader',serif;font-size:24px;margin:0 0 6px;}
+  .admin-toolbar{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0;align-items:center;}
+  .admin-toolbar input{flex:1;min-width:200px;padding:10px 12px;border:1px solid #000;font-size:13px;}
+  .admin-table{width:100%;border-collapse:collapse;margin-top:12px;font-size:13px;}
+  .admin-table th{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.06em;text-align:left;padding:10px 8px;border-bottom:2px solid #000;background:#F2F2F2;white-space:nowrap;}
+  .admin-table td{padding:10px 8px;border-bottom:1px solid #EAEAEA;vertical-align:top;max-width:220px;word-break:break-word;}
+  .admin-table tr:hover{background:#F9F9F9;}
+  .badge{font-family:'IBM Plex Mono',monospace;font-size:10px;padding:3px 6px;border:1px solid #000;display:inline-block;}
+  .badge.ban{background:#000;color:#FFF;}
+  .badge.ok{background:#FFF;color:#000;}
+  .badge.pending{background:#F2F2F2;color:#555;}
+  .admin-detail{border:2px solid #000;padding:20px;margin-top:18px;background:#FFF;}
+  .admin-detail h3{font-family:'Newsreader',serif;font-size:18px;margin:10px 0 8px;}
+  .admin-answer{border:1px solid #D6D6D6;padding:12px;margin:10px 0;background:#F9F9F9;white-space:pre-wrap;font-size:13px;}
+  .admin-answer.empty{color:#9A9A9A;font-style:italic;}
+  /* logo */
+  .site-logo{display:block;max-width:190px;height:auto;margin:0 auto 22px;object-fit:contain;}
+  .site-logo.small{max-width:140px;margin:0 0 14px 0;}
+  .site-logo.rail-logo{max-width:130px;margin:0 auto 16px auto;filter:none;}
+  .site-logo.report-logo{max-width:160px;margin:0 0 18px 0;}
+</style>
+</head>
+<body>
+
+<!-- ============ INTAKE ============ -->
+<div id="intake">
+  <div class="intake-card">
+    <img src="ZAID.png" alt="ZAID Corporation" class="site-logo" onerror="this.style.display='none'">
+    <div class="intake-header">
+      <span class="stamp">SIMULAÇÃO FICTÍCIA — PROTEÇÃO DE PROPRIEDADE INTELECTUAL</span>
+      <h1>Avaliação de Cargo Executivo</h1>
+      <p>Instrumento interno da ZAID Corporation para avaliação de candidatos aos cargos de <b style="color:#000;">CTO e CISO</b>. Todas as <b style="color:#000;">10 questões são dissertativas e 100% FICTÍCIAS</b> — criadas como <b style="color:#000;">isomorfos análogos</b> que testam a mesma competência sem expor problemas, clientes ou tecnologias reais. Nenhum candidato recebe dados reais da ZAID.</p>
+      <div style="border:2px solid #000;padding:12px 14px;margin-top:16px;background:#FFF8E1;">
+        <div class="mono" style="font-size:11px;letter-spacing:0.08em;color:#000;">⚠ CENÁRIO HIPOTÉTICO — HELIX ORION (EMPRESA FICTÍCIA) — NÃO É CASO REAL</div>
+        <p style="font-size:12.5px;color:#555;margin:8px 0 0;">Ex.: "HELIX-API", "OMEGA LLM", "AGÊNCIA AURORA" são nomes fictícios. A <b style="color:#000;">solução/gabarito real fica oculta</b> e só o avaliador vê (senha). Assim você testa o candidato sem entregar sua ideia.</p>
+      </div>
+      <div style="border:2px solid #000;padding:12px 14px;margin-top:12px;background:#F5F5F5;">
+        <div class="mono" style="font-size:11px;letter-spacing:0.08em;color:#000;">⚠ PROTOCOLO ANTI-FRAUDE — LEIA COM ATENÇÃO</div>
+        <ul style="margin:8px 0 0 16px;padding:0;color:#333;font-size:13px;line-height:1.55;">
+          <li><b style="color:#000;">Tela cheia obrigatória:</b> a prova só roda em tela cheia. Sair da tela = <b style="color:#000;">desclassificação imediata e perda total da vaga</b>.</li>
+          <li><b style="color:#000;">Colagem bloqueada:</b> Ctrl+V, botão direito, arrastar e soltar desabilitados. Digite manualmente.</li>
+          <li><b style="color:#000;">IP + dispositivo banidos:</b> ao violar, seu <b style="color:#000;">IP público</b> e <b style="color:#000;">fingerprint do dispositivo</b> são banidos. <b style="color:#000;">Mesmo com VPN você não terá mais acesso</b> — o bloqueio é por dispositivo + IP.</li>
+          <li>Sem segunda chance. Violação é registrada permanentemente (5 storages + IndexedDB).</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Nome completo *</label>
+      <input type="text" id="inputName" placeholder="Ex: Ana Paula Silva" autocomplete="name">
+      <div class="field-error hidden" id="errName">Informe nome completo (nome + sobrenome, ex: Ana Silva)</div>
+    </div>
+    <div class="field">
+      <label>E-mail *</label>
+      <input type="email" id="inputEmail" placeholder="Ex: ana.silva@email.com" autocomplete="email" inputmode="email">
+      <div class="field-error hidden" id="errEmail">Informe um e-mail válido</div>
+    </div>
+    <div class="field">
+      <label>Telefone / WhatsApp *</label>
+      <input type="tel" id="inputPhone" placeholder="Ex: (11) 99999-9999" autocomplete="tel" inputmode="tel" maxlength="16">
+      <div class="field-error hidden" id="errPhone">Informe WhatsApp válido com DDD (ex: 11 99999-9999)</div>
+    </div>
+
+    <div class="field">
+      <label>Cargo avaliado</label>
+      <div class="track-choice">
+        <button class="track-option" data-track="CTO" onclick="selectTrack('CTO')">
+          <div class="track-code">TRILHA — CTO</div>
+          <div class="track-name">Chief Technology Officer</div>
+          <div class="track-desc">Engenharia da API, integração com Claude, gestão técnica das 4 squads.</div>
+        </button>
+        <button class="track-option" data-track="CISO" onclick="selectTrack('CISO')">
+          <div class="track-code">TRILHA — CISO</div>
+          <div class="track-name">Chief Information Security Officer</div>
+          <div class="track-desc">OpSec, auditoria de logs, canal com Project Zero e USCYBERCOM.</div>
+        </button>
+      </div>
+    </div>
+
+    <button class="btn-primary" id="btnStart" disabled onclick="handleStart()">Iniciar avaliação (cenário fictício)</button>
+    <button class="link-quiet" onclick="showSaved()">Ver avaliações salvas neste navegador</button>
+    <button class="link-quiet" style="font-size:11px;letter-spacing:0.04em;" onclick="openEvaluator()">🔒 Acesso avaliador — gabarito oculto (senha)</button>
+    <button class="link-quiet" style="font-size:11px;letter-spacing:0.04em;color:#000;font-weight:600;" onclick="openAdmin()">👁️ Página Admin — ver tudo (nome, e-mail, WhatsApp e respostas)</button>
+  </div>
+</div>
+
+<!-- ============ ASSESSMENT ============ -->
+<div id="assessment" class="hidden">
+  <div class="rail">
+    <img src="ZAID.png" alt="ZAID" class="site-logo rail-logo" onerror="this.style.display='none'">
+    <div class="rail-candidate">
+      <div class="name" id="railName">—</div>
+      <div class="track" id="railTrack">—</div>
+    </div>
+    <div class="rail-timer">
+      <div class="label">Tempo total decorrido</div>
+      <div class="value mono" id="overallTimer">00:00:00</div>
+    </div>
+    <ul class="case-list" id="caseList"></ul>
+    <div class="rail-footer">
+      <button class="btn-ghost" onclick="confirmAbort()">Encerrar sem finalizar</button>
+    </div>
+  </div>
+  <div class="main">
+    <div class="case-header">
+      <div>
+        <div class="case-code" id="caseCode">CTO-01</div>
+        <div class="case-type" id="caseType">Dissertativa</div>
+      </div>
+      <div class="question-timer">
+        <div class="value mono" id="qTimer">00:00</div>
+        <div class="bar"><div class="bar-fill" id="qBarFill"></div></div>
+      </div>
+    </div>
+
+    <div class="case-prompt" id="casePrompt"></div>
+
+    <div class="expired-banner hidden" id="expiredBanner">Tempo esgotado para este item. A resposta registrada até este ponto foi preservada. Você pode revisar o texto, mas não editá-lo — avance para o próximo item.</div>
+
+    <textarea class="answer" id="answerBox" placeholder="Descreva seu raciocínio dissertativo aqui... (colagem desabilitada — digitação manual obrigatória)" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
+    <div class="char-count" id="charCount">0 caracteres</div>
+
+    <div class="nav-row">
+      <button class="btn-nav" id="btnPrev" onclick="goPrev()">Anterior</button>
+      <button class="btn-nav primary" id="btnNext" onclick="goNext()">Próximo</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ REPORT ============ -->
+<div id="report" class="hidden">
+  <img src="ZAID.png" alt="ZAID" class="site-logo report-logo" onerror="this.style.display='none'">
+  <div class="report-head">
+    <span class="stamp">DOSSIÊ CONSOLIDADO</span>
+    <h1 style="margin-top:14px;">Relatório de Avaliação</h1>
+    <div class="report-meta">
+      <div><div class="k">Candidato</div><div class="v" id="repName">—</div></div>
+      <div><div class="k">Cargo</div><div class="v" id="repTrack">—</div></div>
+      <div><div class="k">E-mail</div><div class="v" id="repEmail">—</div></div>
+      <div><div class="k">WhatsApp</div><div class="v" id="repPhone">—</div></div>
+      <div><div class="k">Data</div><div class="v" id="repDate">—</div></div>
+      <div><div class="k">Tempo total</div><div class="v" id="repTotal">—</div></div>
+    </div>
+  </div>
+
+  <div id="reportItems"></div>
+
+  <div class="report-actions">
+    <button class="btn-primary" style="width:auto;" onclick="saveReport()">Salvar avaliação neste navegador</button>
+    <button class="btn-ghost" style="width:auto;padding:13px 20px;" onclick="resetAll()">Nova avaliação</button>
+  </div>
+  <div class="save-msg" id="saveMsg">Avaliação salva localmente. Disponível em "Ver avaliações salvas".</div>
+</div>
+
+<!-- ============ SAVED LIST ============ -->
+<div id="saved" class="hidden">
+  <img src="ZAID.png" alt="ZAID" class="site-logo small" style="margin-bottom:12px;" onerror="this.style.display='none'">
+  <span class="stamp">REGISTROS LOCAIS</span>
+  <h1 style="margin-top:14px;margin-bottom:24px;">Avaliações Salvas</h1>
+  <div id="savedList"></div>
+  <button class="link-quiet" onclick="backToIntake()">Voltar ao início</button>
+</div>
+
+<!-- ============ OVERLAYS ANTI-FRAUDE ============ -->
+<div id="fullscreenGate" class="hidden">
+  <div class="gate-card">
+    <img src="ZAID.png" alt="ZAID" class="site-logo small" style="margin:0 auto 14px auto;" onerror="this.style.display='none'">
+    <span class="stamp">PROTOCOLO DE INTEGRIDADE — IP LOGADO</span>
+    <h2 style="margin-top:14px;">Tela cheia obrigatória</h2>
+    <p>Esta avaliação só pode ser realizada em <b style="color:#000;">tela cheia</b>. Você <b style="color:#000;">não poderá sair da tela, trocar de aba, minimizar ou usar outra janela</b> durante a prova.</p>
+    <p style="border:2px solid #000;padding:10px 12px;background:#F2F2F2;color:#000;">Se você sair da tela cheia, trocar de aba ou minimizar o navegador <b style="color:#000;">será imediatamente desclassificado</b> e perderá a vaga completamente. Seu <b style="color:#000;">IP público e dispositivo serão banidos — mesmo com VPN você não voltará</b>. Não haverá segunda chance ou retomada.</p>
+    <p style="font-size:12px;color:#555;" class="mono">Cópia/colagem desabilitadas. IP logado. TELA CHEIA = OBRIGATÓRIO. VPN NÃO BURLA.</p>
+    <button class="btn-primary" onclick="enterFullscreenAndStart()">Entrar em tela cheia e iniciar (IP será registrado)</button>
+    <button class="link-quiet" onclick="cancelFullscreenGate()">Cancelar</button>
+  </div>
+</div>
+
+<div id="violationModal" class="hidden">
+  <div class="violation-card">
+    <img src="ZAID.png" alt="ZAID" class="site-logo small" style="margin:0 auto 12px auto;" onerror="this.style.display='none'">
+    <span class="stamp">VIOLAÇÃO DETECTADA — SISTEMA ANTI-FRAUDE — IP BANIDO</span>
+    <h2 style="margin-top:14px;">⚠ VOCÊ SAIU DA TELA</h2>
+    <p id="violationText">Você saiu da tela cheia / trocou de aba. Esta é uma violação grave do protocolo.</p>
+    <div style="border:2px solid #000;padding:14px;margin:14px 0;background:#F2F2F2;">
+      <div class="mono" style="font-size:11px;color:#555;letter-spacing:0.08em;">STATUS DA VAGA — IP/DISPOSITIVO BANIDO</div>
+      <div style="font-family:'Newsreader',serif;font-size:20px;color:#000;margin-top:6px;">DESCLASSIFICADO — VAGA PERDIDA</div>
+      <div class="mono" style="font-size:12px;color:#333;margin-top:6px;">Você não poderá mais realizar esta avaliação. Seu <b style="color:#000;">IP público e fingerprint</b> foram bloqueados permanentemente — <b style="color:#000;">mesmo com VPN ou troca de navegador você continua bloqueado neste dispositivo</b>.</div>
+    </div>
+    <button class="btn-primary" style="background:#000;color:#FFF;" onclick="acknowledgeDisqualification()">Entendi — sair (IP banido)</button>
+  </div>
+</div>
+
+<div id="disqualifiedScreen" class="hidden">
+  <div class="disq-card">
+    <img src="ZAID.png" alt="ZAID" class="site-logo small" style="margin:0 auto 12px auto;" onerror="this.style.display='none'">
+    <span class="stamp">ACESSO BLOQUEADO — IP BANIDO</span>
+    <h2 style="margin-top:14px;">Candidato desclassificado</h2>
+    <p>Este candidato violou o protocolo de tela cheia (saiu da tela, trocou de aba ou minimizou). Conforme o aviso inicial, a vaga foi <b style="color:#000;">perdida completamente</b>.</p>
+    <p class="mono" style="font-size:12px;color:#555;">Seu <b style="color:#000;">IP público e fingerprint do dispositivo</b> foram banidos. <b style="color:#000;">Mesmo trocando de IP com VPN, usando aba anônima ou outro navegador no mesmo aparelho, o acesso continua bloqueado.</b> Tentativas de reingresso são registradas com IP. Para contestação, contate o comitê ZAID — mas o protocolo não prevê segunda chamada.</p>
+    <div id="disqInfo" class="mono" style="font-size:11px;color:#333;margin-top:14px;border-top:1px solid #D6D6D6;padding-top:12px;word-break:break-all;"></div>
+    <button class="btn-ghost" style="margin-top:18px;" onclick="resetAllAndExitDisq()">Voltar ao início</button>
+  </div>
+</div>
+
+<div id="pasteToast" class="paste-toast">COLAGEM BLOQUEADA — DIGITE SUA RESPOSTA MANUALMENTE</div>
+
+<!-- ============ MODO AVALIADOR — GABARITO OCULTO ============ -->
+<div id="evaluatorPanel" class="hidden">
+  <div class="eval-card">
+    <img src="ZAID.png" alt="ZAID" class="site-logo small" style="margin:0 0 14px 0;" onerror="this.style.display='none'">
+    <span class="stamp">MODO AVALIADOR — CONFIDENCIAL</span>
+    <h2 style="margin-top:12px;">Gabarito — Soluções Esperadas (Fictício → Real)</h2>
+    <p class="mono" style="font-size:12px;color:#555;margin-top:6px;">Cada cenário fictício testa a mesma competência do problema real, sem expor a ideia. Avalie se o candidato acertou os <b style="color:#000;">critérios</b>, evitou as <b style="color:#000;">armadilhas</b> e demonstrou raciocínio. Peso indica importância.</p>
+    <div style="display:flex;gap:8px;margin:14px 0;">
+      <button class="btn-ghost" style="width:auto;padding:10px 14px;" onclick="switchEval('CTO')">Ver CTO (10)</button>
+      <button class="btn-ghost" style="width:auto;padding:10px 14px;" onclick="switchEval('CISO')">Ver CISO (10)</button>
+      <button class="btn-ghost" style="width:auto;padding:10px 14px;margin-left:auto;" onclick="closeEvaluator()">Fechar</button>
+    </div>
+    <div class="mono" style="font-size:11px;color:#000;background:#FFF8E1;border:1px solid #D6D6D6;padding:8px 10px;">Lógica de proteção: O candidato vê "HELIX/OMEGA/AURORA" (fictício). Você, avaliador, traduz internamente para seu problema real (ZAID-API/Claude/4 squads). Se ele vazar a "ideia", vazou só o isomorfo — inútil sem o mapeamento real.</div>
+    <div id="evalContent" style="margin-top:16px;"></div>
+    <div style="border-top:2px solid #000;margin-top:20px;padding-top:12px;display:flex;gap:8px;flex-wrap:wrap;">
+      <button class="btn-primary" style="width:auto;" onclick="downloadGabarito()">Baixar gabarito (.txt)</button>
+      <button class="btn-ghost" style="width:auto;padding:13px 16px;" onclick="copyEvalLink()">Copiar mapeamento fictício→real</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ PÁGINA ADMIN — VER TUDO ============ -->
+<div id="adminPanel" class="hidden">
+  <div class="admin-card">
+    <img src="ZAID.png" alt="ZAID" class="site-logo small" style="margin:0 0 14px 0;" onerror="this.style.display='none'">
+    <span class="stamp">PAINEL ADMIN — CONFIDENCIAL</span>
+    <h2 style="margin-top:12px;">Todas as Avaliações — Admin</h2>
+    <p class="mono" style="font-size:12px;color:#555;margin-top:6px;">Veja <b style="color:#000;">nome completo, e-mail, WhatsApp, trilha, tempo, status</b> e <b style="color:#000;">todas as respostas dissertativas</b>. Quem saiu da tela aparece como <span class="badge ban">BANIDO</span>. Dados deste navegador (localStorage + IndexedDB).</p>
+    <div class="admin-toolbar">
+      <input type="text" id="adminSearch" placeholder="Buscar por nome, e-mail, telefone ou trilha..." oninput="filterAdmin()">
+      <button class="btn-ghost" style="width:auto;padding:10px 14px;" onclick="loadAdminData()">↻ Atualizar</button>
+      <button class="btn-ghost" style="width:auto;padding:10px 14px;" onclick="exportAdminCSV()">⬇ Exportar CSV</button>
+      <button class="btn-ghost" style="width:auto;padding:10px 14px;" onclick="exportAdminJSON()">⬇ JSON</button>
+      <button class="btn-ghost" style="width:auto;padding:10px 14px;margin-left:auto;" onclick="closeAdmin()">Fechar</button>
+    </div>
+    <div class="mono" style="font-size:11px;color:#555;display:flex;gap:16px;flex-wrap:wrap;">
+      <span>Total: <b id="adminTotal" style="color:#000;">0</b></span>
+      <span>Concluídos: <b id="adminOk" style="color:#000;">0</b></span>
+      <span>Banidos: <b id="adminBan" style="color:#000;">0</b></span>
+      <span>Rascunhos: <b id="adminDraft" style="color:#000;">0</b></span>
+    </div>
+    <div style="overflow:auto;max-height:52vh;border:1px solid #000;margin-top:12px;">
+      <table class="admin-table" id="adminTable">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>E-mail</th>
+            <th>WhatsApp</th>
+            <th>Trilha</th>
+            <th>Data</th>
+            <th>Tempo</th>
+            <th>Status</th>
+            <th>Ação</th>
+          </tr>
+        </thead>
+        <tbody id="adminTbody"><tr><td colspan="8" style="text-align:center;color:#9A9A9A;padding:20px;">Carregando...</td></tr></tbody>
+      </table>
+    </div>
+    <div id="adminDetail" class="admin-detail hidden"></div>
+  </div>
+</div>
+
+<script>
+/* ================= CENÁRIO FICTÍCIO — ISOLAMENTO DE PROPRIEDADE INTELECTUAL ================= */
+/* ATENÇÃO: Todo o conteúdo abaixo é FICTÍCIO, criado exclusivamente para avaliar raciocínio.
+   Nenhum nome, cliente, tecnologia ou processo aqui corresponde a projetos reais da ZAID.
+   O candidato NÃO recebe detalhes reais — apenas isomorfos análogos que testam a mesma competência,
+   protegendo a ideia original. A SOLUÇÃO/GABARITO fica oculta em modo avaliador (senha). */
+const FICTIONAL_DISCLAIMER = "⚠ CENÁRIO 100% FICTÍCIO — SIMULAÇÃO HIPOTÉTICA. Qualquer semelhança com projetos reais é coincidência. Avalia-se raciocínio, não conhecimento interno.";
+
+const QUESTIONS = {
+  CTO: [
+    {code:'CTO-01', type:'Dissertativa · FICTÍCIA', limit:12*60,
+     prompt:'[CENÁRIO FICTÍCIO — HELIX ORION, empresa aeroespacial simulada] Descreva como você estruturaria os primeiros 90 dias à frente da engenharia da Plataforma HELIX-API fictícia, que integra um LLM de fornecedor externo fictício [OMEGA] e opera com 4 células isoladas (Need-to-Know). Detalhe rituais, métricas e como evitar vazamento de informação entre células. '+FICTIONAL_DISCLAIMER},
+    {code:'CTO-02', type:'Dissertativa — Estudo de Caso FICTÍCIO', limit:9*60,
+     prompt:'[FICTÍCIO] A Célula 1 da HELIX detecta, 48h antes de demo para cliente governamental fictício [AGÊNCIA AURORA], falha de escalonamento de privilégio no hipervisor do ambiente de homologação. Corrigir atrasa a demo; não corrigir expõe o ambiente. Qual sua decisão e como comunica ao CEO e ao cliente fictícios? Justifique trade-offs.'},
+    {code:'CTO-03', type:'Dissertativa · FICTÍCIA', limit:10*60,
+     prompt:'[FICTÍCIO] Como equilibrar velocidade vs rigor do protocolo fictício de 4 gates (assinatura de célula + validação IA externa + simulação adversa + autorização executiva) sem criar gargalo? Proponha fluxo com SLAs. Cenário não representa processo real da ZAID.'},
+    {code:'CTO-04', type:'Dissertativa — Estudo de Caso FICTÍCIO', limit:9*60,
+     prompt:'[FICTÍCIO] O fornecedor de LLM [OMEGA] muda sem aviso a política de API usada pela HELIX-API; dois clientes fictícios do setor de defesa dependem disso nesta semana. Como conduz resposta técnica (fallback/cache/troca de modelo) e comunicação? Avalia-se adaptabilidade, não dado real.'},
+    {code:'CTO-05', type:'Dissertativa · FICTÍCIA', limit:10*60,
+     prompt:'[FICTÍCIO] Como medir e comparar performance das 4 células sem violar Need-to-Know? Defina KPIs e dashboards compartimentados fictícios. O problema é análogo, não revela métricas internas reais.'},
+    {code:'CTO-06', type:'Dissertativa · FICTÍCIA', limit:10*60,
+     prompt:'[FICTÍCIO] Disserte sobre dívida técnica em sistema compartimentado onde ninguém vê o todo (empresa simulada NEXUS). Como priorizar refatorações invisíveis ao cliente mas críticas para segurança sem parar entrega?'},
+    {code:'CTO-07', type:'Dissertativa — Cenário Crítico FICTÍCIO', limit:9*60,
+     prompt:'[FICTÍCIO] Pipeline da HELIX aprova build que passou na validação IA mas falha na simulação adversa com inconclusivo. CEO fictício autoriza deploy manual. Você deploya? Descreva escalonamento e como documentaria dissenso. Cenário hipotético.'},
+    {code:'CTO-08', type:'Dissertativa · FICTÍCIA', limit:11*60,
+     prompt:'[FICTÍCIO] Elabore plano de continuidade/disaster recovery para HELIX-API onde cada célula guarda segredos não replicáveis. Aborde backup criptográfico, bus factor e rotação de chaves — tudo fictício, avalia-se princípio.'},
+    {code:'CTO-09', type:'Dissertativa · FICTÍCIA', limit:10*60,
+     prompt:'[FICTÍCIO] Defenda/critique uso de IA generativa como gate obrigatório de code review na HELIX. Quais vieses, falhas de alinhamento ou vazamentos de IP você antecipa e como mitigaria? Exemplo prático fictício.'},
+    {code:'CTO-10', type:'Dissertativa — Liderança FICTÍCIA', limit:12*60,
+     prompt:'[FICTÍCIO] Dois tech leads de células diferentes da HELIX brigam por ownership de módulo compartilhado e ameaçam não colaborar. Ambos são talentos críticos fictícios. Descreva sua intervenção em 72h e o que NÃO faria. Avalia-se liderança, não caso real.'}
+  ],
+  CISO: [
+    {code:'CISO-01', type:'Dissertativa · FICTÍCIA', limit:12*60,
+     prompt:'[CENÁRIO FICTÍCIO — HELIX ORION] Descreva sua filosofia de OpSec nos 90 dias, incluindo auditoria de logs imutáveis fictícios das 4 células sem criar ponto único de falha humano. Detalhe ferramentas, frequência e quem audita o auditor. '+FICTIONAL_DISCLAIMER},
+    {code:'CISO-02', type:'Dissertativa — Estudo de Caso FICTÍCIO', limit:9*60,
+     prompt:'[FICTÍCIO] Você recebe indício não confirmado de vazamento de credenciais oriundo de uma célula, sem saber qual membro. Faltam 24h para reunião com parceiro externo fictício [CERT AURORA]. Descreva sua sequência hora a hora, o que comunica e o que mantém em sigilo.'},
+    {code:'CISO-03', type:'Dissertativa · FICTÍCIA', limit:10*60,
+     prompt:'[FICTÍCIO] Como estruturar e proteger canal confidencial com dois parceiros externos fictícios [LAB 0 e CERT AURORA], garantindo que informações não vazem entre canais e que compartimentação resista a comprometimento de um canal?'},
+    {code:'CISO-04', type:'Dissertativa — Estudo de Caso FICTÍCIO', limit:9*60,
+     prompt:'[FICTÍCIO] Parceiro externo reporta publicamente vuln crítica em produto da HELIX que sua auditoria interna fictícia não detectou. Imprensa já sabe. Como conduz resposta em 6h? Detalhe war room, disclosure e contenção. Cenário hipotético.'},
+    {code:'CISO-05', type:'Dissertativa · FICTÍCIA', limit:10*60,
+     prompt:'[FICTÍCIO] Como executaria quarentena modular de uma célula comprometida da HELIX sem parar as outras três? Critérios técnicos/jurídicos fictícios e como evitar pânico.'},
+    {code:'CISO-06', type:'Dissertativa · FICTÍCIA', limit:10*60,
+     prompt:'[FICTÍCIO] Insider threat em alta compartimentação fictícia: como detectar colaborador que exfiltra lentamente dentro do Need-to-Know sem criar cultura paranoica? Controles técnicos e humanos.'},
+    {code:'CISO-07', type:'Dissertativa — Cenário Crítico FICTÍCIO', limit:9*60,
+     prompt:'[FICTÍCIO] Você descobre que log imutável fictício foi alterado — teoricamente impossível. Hipóteses: falha de implementação ou insider com escrita. Descreva forense passo a passo e como comunicaria ao CEO fictício sem acusação precipitada.'},
+    {code:'CISO-08', type:'Dissertativa · FICTÍCIA', limit:11*60,
+     prompt:'[FICTÍCIO] Como equilibrar transparência com parceiro governamental fictício [AURORA] vs proteção de IP comercial da HELIX? Onde traçaria linha vermelha e como documentaria negativas?'},
+    {code:'CISO-09', type:'Dissertativa · FICTÍCIA', limit:10*60,
+     prompt:'[FICTÍCIO] Proponha treinamento contínuo de segurança para 4 células fictícias que não vire teatro de compliance. Como mediria mudança real de comportamento além de clique em phishing?'},
+    {code:'CISO-10', type:'Dissertativa — Liderança FICTÍCIA', limit:12*60,
+     prompt:'[FICTÍCIO] CEO fictício pressiona para acelerar certificação para fechar contrato bilionário fictício, sugerindo relaxar controle não-negociável. Como sustenta o “não” sem ser demitido e qual trilha de auditoria deixaria?'}
+  ]
+};
+
+/* ================= BANCO DE SOLUÇÕES — OCULTO (SÓ AVALIADOR) ================= */
+/* Este objeto NÃO é exibido ao candidato. Avaliador acessa via senha em modo avaliador. */
+const SOLUTIONS = {
+  CTO: {
+    "CTO-01": { titulo:"90 dias HELIX — esperado", criterios:["Mapa de dependências sem quebrar isolamento (matriz RACI por célula)","Rituais: weekly sync compartimentado + monthly cross sem expor segredo","Métricas: lead time por célula, DORA adaptado, sem comparar código entre células","Anti-vazamento: vault por célula, rotação de chaves, review cego"], armadilhas:["Propor all-hands com visão total = falha de Need-to-Know","Comparar linhas de código entre células = vazamento"], peso:10 },
+    "CTO-02": { criterios:["Decisão: adiar demo + oferecer sandbox isolado ou escopo reduzido","Comunicação CEO: fato, impacto, 2 opções com custo/risco, recomendação","Comunicação cliente fictício: transparência controlada, sem detalhar exploit","Trade-off reputação vs segurança"], peso:9 },
+    "CTO-03": { criterios:["Fluxo paralelo: gates 1-2 em paralelo, gate 3 só para alto risco","SLA: 24h padrão, 4h expedito com dupla assinatura","Métrica de fila e WIP limite"], peso:10 },
+    "CTO-04": { criterios:["Mitigação técnica: cache de respostas, modelo fallback open-source, feature flag","Comunicação stakeholders fictícios: aviso em 2h, plano B com data","Lição: contrato com SLA de aviso prévio"], peso:9 },
+    "CTO-05": { criterios:["KPIs por célula: deploy freq, change failure, MTTR — sem expor valores entre células","Dashboard por célula com agregador anonimizado","Ritual: review executivo 1:1"], peso:10 },
+    "CTO-06": { criterios:["Taxonomia: dívida visível vs invisível vs de segurança","Alocação 20% capacity para refatoração invisível","Critério: CVSS + custo de carry"], peso:10 },
+    "CTO-07": { criterios:["Não deployar sem segundo parecer","Escalonar para conselho fictício, registrar dissent memo","Propor canary 5% com kill-switch"], peso:9 },
+    "CTO-08": { criterios:["Backup: shards criptográficos por célula, quorum 2/3","Bus factor: pair-ownership + cofre offline","Rotação: chaves efêmeras 30 dias"], peso:11 },
+    "CTO-09": { criterios:["Prós: escala, contras: viés, vazamento de IP para fornecedor","Mitigação: prompt sanitizado, sem código proprietário puro, auditoria de LLM"], peso:10 },
+    "CTO-10": { criterios:["Dia 1: escuta 1:1, dia 2: mediação com RACI, dia 3: decisão arquitetural","NÃO: tomar partido público, ameaçar, expor segredo de célula"], peso:12 }
+  },
+  CISO: {
+    "CISO-01": { criterios:["Filosofia zero-trust + least privilege","Logs: WORM fictício, hash encadeado, auditoria cruzada rotativa","Quem audita auditor: rotação trimestral + auditor externo fictício"], peso:12 },
+    "CISO-02": { criterios:["Hora 0-2: isolar, preservar evidência, não acusar","Hora 2-8: honeytoken, reset controlado, briefing CEO fictício com 3 cenários","Na reunião:.reportar indício, não atribuir"], peso:9 },
+    "CISO-03": { criterios:["Canais com chaves distintas, air-gap lógico, compartimento por parceiro","Se um canal cair, outro intacto (forward secrecy)"], peso:10 },
+    "CISO-04": { criterios:["War room 30min, contenção 60min, patch 4h, disclosure coordenado","Comunicação: sem culpar, com timeline e mitigação"], peso:9 },
+    "CISO-05": { criterios:["Isolamento lógico, cut de rede, modo read-only","Critério jurídico: evidência forense + aval legal fictício","Evitar pânico: need-to-know no anúncio"], peso:10 },
+    "CISO-06": { criterios:["UEBA + baseline por célula, detecção de exfiltração lenta","Controle humano: 4 olhos, rotação de função, cultura de reporte seguro"], peso:10 },
+    "CISO-07": { criterios:["Forense: snapshot, cadeia de custódia, replay de hash","Comunicação CEO: fato, hipóteses, plano sem acusar"], peso:9 },
+    "CISO-08": { criterios:["Linha vermelha: IP core não compartilhado, apenas IoC","Documentação: negativa registrada com base legal fictícia"], peso:11 },
+    "CISO-09": { criterios:["Treino contínuo curto (5min/semana), simulação realista","Métrica: taxa de reporte voluntário + tempo de contenção, não só clique"], peso:10 },
+    "CISO-10": { criterios:["Sustentar não com risco quantificado + alternativa de escopo","Trilha: memo formal, e-mail com cópia jurídica, registro em ata"], peso:12 }
+  }
+};
+
+const TRACK_LABEL = {CTO:'Chief Technology Officer', CISO:'Chief Information Security Officer'};
+
+/* ================= STATE ================= */
+let state = null; // { candidate, track, questions, currentIndex, answers[], startedAt }
+let overallIntervalId = null;
+let questionIntervalId = null;
+let selectedTrack = null;
+
+/* ================= HELPERS ================= */
+function formatMMSS(totalSeconds){
+  totalSeconds = Math.max(0, Math.round(totalSeconds));
+  const m = Math.floor(totalSeconds/60).toString().padStart(2,'0');
+  const s = (totalSeconds%60).toString().padStart(2,'0');
+  return m+':'+s;
+}
+function formatHHMMSS(totalSeconds){
+  totalSeconds = Math.max(0, Math.round(totalSeconds));
+  const h = Math.floor(totalSeconds/3600).toString().padStart(2,'0');
+  const m = Math.floor((totalSeconds%3600)/60).toString().padStart(2,'0');
+  const s = (totalSeconds%60).toString().padStart(2,'0');
+  return h+':'+m+':'+s;
+}
+function slug(str){
+  return (str||'candidato').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+}
+function show(id){
+  ['intake','assessment','report','saved'].forEach(s=>{
+    document.getElementById(s).classList.toggle('hidden', s!==id);
+  });
+}
+
+/* ================= INTAKE ================= */
+function selectTrack(track){
+  selectedTrack = track;
+  document.querySelectorAll('.track-option').forEach(el=>{
+    el.classList.toggle('selected', el.dataset.track===track);
+  });
+  checkStartEnabled();
+}
+function isValidFullName(name){
+  const parts = name.trim().split(/\s+/).filter(p=>p.length>=2);
+  if(parts.length < 2) return false;
+  // cada parte precisa ter ao menos 2 letras e só letras (permite acentos e hífen)
+  return parts.every(p=> /^[A-Za-zÀ-ÿ]{2,}([\-'][A-Za-zÀ-ÿ]{2,})?$/.test(p) ) && name.trim().length >= 6;
+}
+function isValidEmail(email){
+  return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.trim()) && email.length <= 254;
+}
+function digitsOnly(s){ return (s||'').replace(/\D/g,''); }
+function isValidPhone(phone){
+  const d=digitsOnly(phone);
+  // Brasil: 10 ou 11 dígitos (DDD 10-91 + número), aceita 11 com 9 na frente
+  return d.length===10 || d.length===11;
+}
+function maskPhone(value){
+  let d=digitsOnly(value).slice(0,11);
+  if(d.length<=2) return d.length? '('+d : '';
+  if(d.length<=6) return '('+d.slice(0,2)+') '+d.slice(2);
+  if(d.length<=10) return '('+d.slice(0,2)+') '+d.slice(2,6)+'-'+d.slice(6);
+  return '('+d.slice(0,2)+') '+d.slice(2,7)+'-'+d.slice(7);
+}
+function validateField(id, validator, errId){
+  const el=document.getElementById(id);
+  const err=document.getElementById(errId);
+  const ok=validator(el.value);
+  el.classList.toggle('invalid', !ok && el.value.trim().length>0);
+  if(err) err.classList.toggle('hidden', ok || el.value.trim().length===0);
+  return ok;
+}
+function checkStartEnabled(){
+  const name=document.getElementById('inputName').value;
+  const email=document.getElementById('inputEmail').value;
+  const phone=document.getElementById('inputPhone').value;
+  const nameOk=isValidFullName(name);
+  const emailOk=isValidEmail(email);
+  const phoneOk=isValidPhone(phone);
+  const allOk = nameOk && emailOk && phoneOk && !!selectedTrack;
+  document.getElementById('btnStart').disabled = !allOk;
+  // mostra erros só se tentou ou se campo tocado
+  return allOk;
+}
+document.getElementById('inputName').addEventListener('input', checkStartEnabled);
+document.getElementById('inputEmail').addEventListener('input', checkStartEnabled);
+document.getElementById('inputPhone').addEventListener('input', (e)=>{
+  const start=e.target.selectionStart;
+  const oldLen=e.target.value.length;
+  e.target.value=maskPhone(e.target.value);
+  // tenta manter cursor
+  const newLen=e.target.value.length;
+  try{ e.target.setSelectionRange(start+(newLen-oldLen), start+(newLen-oldLen)); }catch(e2){}
+  checkStartEnabled();
+});
+document.getElementById('inputPhone').addEventListener('blur', ()=> validateField('inputPhone', isValidPhone, 'errPhone'));
+document.getElementById('inputEmail').addEventListener('blur', ()=> validateField('inputEmail', isValidEmail, 'errEmail'));
+document.getElementById('inputName').addEventListener('blur', ()=> validateField('inputName', isValidFullName, 'errName'));
+
+let pendingStart = null; // {name, track}
+let violationCount = 0;
+let isDisqualified = false;
+let fullscreenEnforced = false;
+
+async function handleStart(){
+  const rawName=document.getElementById('inputName').value;
+  const rawEmail=document.getElementById('inputEmail').value;
+  const rawPhone=document.getElementById('inputPhone').value;
+  const name = rawName.replace(/<[^>]*>/g,'').replace(/[\x00-\x1F]/g,'').trim().replace(/\s+/g,' ').slice(0,80);
+  const email = rawEmail.trim().toLowerCase().slice(0,254);
+  const phone = maskPhone(rawPhone);
+  const phoneDigits = digitsOnly(phone);
+  document.getElementById('inputName').value=name;
+  document.getElementById('inputEmail').value=email;
+  document.getElementById('inputPhone').value=phone;
+  // validações rígidas
+  if(!isValidFullName(name)){
+    document.getElementById('errName').classList.remove('hidden');
+    document.getElementById('inputName').classList.add('invalid');
+    alert('Informe NOME COMPLETO (nome + sobrenome, ex: Ana Paula Silva). Primeiro nome só não é permitido.');
+    return;
+  }
+  if(!isValidEmail(email)){
+    document.getElementById('errEmail').classList.remove('hidden');
+    document.getElementById('inputEmail').classList.add('invalid');
+    alert('Informe um E-MAIL válido (ex: nome@email.com).');
+    return;
+  }
+  if(!isValidPhone(phone)){
+    document.getElementById('errPhone').classList.remove('hidden');
+    document.getElementById('inputPhone').classList.add('invalid');
+    alert('Informe TELEFONE/WHATSAPP válido com DDD (ex: (11) 99999-9999).');
+    return;
+  }
+  if(!selectedTrack){ alert('Selecione o cargo (CTO ou CISO).'); return; }
+  const track=selectedTrack;
+  const s=slug(name);
+  const banKey='zaid_ban:'+track+':'+s;
+  const emailBanKey='zaid_ban_email:'+email;
+  const phoneBanKey='zaid_ban_phone:'+phoneDigits;
+  // 1) checa IP / fingerprint ban
+  try{
+    const ipBan=await isIPOrFingerprintBanned();
+    if(ipBan){
+      showDisqualifiedScreen({candidate:name, track:track, email:email, phone:phone, reason:'IP/dispositivo banido — violação anterior ('+ipBan.type+': '+(ipBan.ip||ipBan.fp||'')+')', disqualifiedAt: ipBan.data && ipBan.data.at ? ipBan.data.at : Date.now()});
+      return;
+    }
+  }catch(e){}
+  // 2) checa ban por nome, e-mail, telefone
+  let banned=null;
+  try{ banned=isBanned(track,s); }catch(e){}
+  if(banned){ showDisqualifiedScreen(banned); return; }
+  try{ if(localStorage.getItem(emailBanKey)) { showDisqualifiedScreen(JSON.parse(localStorage.getItem(emailBanKey))); return; } }catch(e){}
+  try{ if(localStorage.getItem(phoneBanKey)) { showDisqualifiedScreen(JSON.parse(localStorage.getItem(phoneBanKey))); return; } }catch(e){}
+  try{
+    const b=await window.storage.get(banKey,false);
+    if(b && b.value){ showDisqualifiedScreen(JSON.parse(b.value)); return; }
+  }catch(e){}
+  try{
+    const dbReq=indexedDB.open('zaid_db',1);
+    dbReq.onsuccess=(e)=>{
+      try{
+        const db=e.target.result;
+        if(db.objectStoreNames.contains('bans')){
+          const tx=db.transaction('bans','readonly');
+          const get=tx.objectStore('bans').get(banKey);
+          get.onsuccess=()=>{ if(get.result){ showDisqualifiedScreen(JSON.parse(get.result)); } };
+        }
+      }catch(e2){}
+    };
+  }catch(e){}
+  if(isBanned(track,s)){ showDisqualifiedScreen(isBanned(track,s)); return; }
+  // checa e-mail/telefone via storage secundário
+  try{
+    const eb=await window.storage.get(emailBanKey,false);
+    if(eb && eb.value){ showDisqualifiedScreen(JSON.parse(eb.value)); return; }
+    const pb=await window.storage.get(phoneBanKey,false);
+    if(pb && pb.value){ showDisqualifiedScreen(JSON.parse(pb.value)); return; }
+  }catch(e){}
+  try{
+    const ipBan2=await isIPOrFingerprintBanned();
+    if(ipBan2){ showDisqualifiedScreen({candidate:name, track:track, email:email, phone:phone, reason:'Dispositivo/IP banido — já violou prova', disqualifiedAt: Date.now()}); return; }
+  }catch(e){}
+  pendingStart = {name, email, phone, phoneDigits, track};
+  document.getElementById('fullscreenGate').classList.remove('hidden');
+  hijackClipboard();
+  try{ getPublicIP(); getFingerprint(); }catch(e){}
+}
+
+async function enterFullscreenAndStart(){
+  const gate = document.getElementById('fullscreenGate');
+  if(!pendingStart) return;
+  const {name, email, phone, phoneDigits, track} = pendingStart;
+  if(isBanned(track, slug(name))){ showDisqualifiedScreen(isBanned(track, slug(name))); return; }
+  try{ if(localStorage.getItem('zaid_ban_email:'+email)) { showDisqualifiedScreen(JSON.parse(localStorage.getItem('zaid_ban_email:'+email))); return; } }catch(e){}
+  try{ if(localStorage.getItem('zaid_ban_phone:'+phoneDigits)) { showDisqualifiedScreen(JSON.parse(localStorage.getItem('zaid_ban_phone:'+phoneDigits))); return; } }catch(e){}
+  try{
+    const el = document.documentElement;
+    if(el.requestFullscreen) await el.requestFullscreen();
+    else if(el.webkitRequestFullscreen) await el.webkitRequestFullscreen();
+  }catch(e){
+    alert('Não foi possível ativar tela cheia. Permita tela cheia no navegador para continuar.');
+    return;
+  }
+  gate.classList.add('hidden');
+  fullscreenEnforced = true;
+  hijackClipboard();
+  const draftKey = 'zaid_draft:'+track+':'+slug(name)+':'+slug(email);
+  let resumed = false;
+  try{
+    const existing = await window.storage.get(draftKey, false);
+    if(existing && existing.value){
+      const draft = JSON.parse(existing.value);
+      if(draft.status === 'disqualified'){
+        showDisqualifiedScreen(draft);
+        return;
+      }
+      if(confirm('Encontramos uma avaliação em andamento para '+name+' ('+track+'). Deseja continuar de onde parou?')){
+        state = draft;
+        // restaura enterAt/accumulated para wall-clock
+        state.answers.forEach(a=>{ if(!a.enterAt) a.enterAt=Date.now(); if(typeof a.accumulated==='undefined') a.accumulated=a.timeSpent||0; });
+        resumed = true;
+        violationCount = state.violationCount || 0;
+      }
+    }
+  }catch(e){}
+  // fallback localStorage draft
+  if(!resumed){
+    try{
+      const ls=localStorage.getItem(draftKey);
+      if(ls){
+        const draft=JSON.parse(ls);
+        if(draft.status !== 'disqualified' && confirm('Encontramos rascunho local para '+name+' ('+track+'). Deseja continuar?')){
+          state=draft;
+          state.answers.forEach(a=>{ if(!a.enterAt) a.enterAt=Date.now(); if(typeof a.accumulated==='undefined') a.accumulated=a.timeSpent||0; });
+          resumed=true;
+          violationCount=state.violationCount||0;
+        }
+      }
+    }catch(e){}
+  }
+  if(!resumed){
+    state = {
+      candidate: name,
+      email: email,
+      phone: phone,
+      phoneDigits: phoneDigits,
+      track: track,
+      questions: QUESTIONS[track],
+      currentIndex: 0,
+      startedAt: Date.now(),
+      violationCount: 0,
+      status: 'active',
+      answers: QUESTIONS[track].map(q=>({
+        code:q.code, prompt:q.prompt, type:q.type, limit:q.limit,
+        text:'', timeSpent:0, status:'pending', enterAt: Date.now(), accumulated:0
+      }))
+    };
+  }
+  document.getElementById('railName').textContent = state.candidate;
+  document.getElementById('railTrack').textContent = TRACK_LABEL[state.track] + ' — ' + state.track + ' · ' + state.email;
+  show('assessment');
+  document.body.classList.add('secure');
+  startOverallTimer();
+  renderCaseList();
+  renderQuestion();
+  installSecurityListeners();
+  startSecurityHeartbeat();
+}
+
+function cancelFullscreenGate(){
+  document.getElementById('fullscreenGate').classList.add('hidden');
+  pendingStart = null;
+}
+
+function showDisqualifiedScreen(info){
+  document.getElementById('fullscreenGate').classList.add('hidden');
+  document.getElementById('disqualifiedScreen').classList.remove('hidden');
+  const el = document.getElementById('disqInfo');
+  if(info){
+    const date = info.disqualifiedAt ? new Date(info.disqualifiedAt).toLocaleString('pt-BR') : '-';
+    const reason = info.reason || 'Saída de tela cheia / troca de aba';
+    let extra='';
+    if(info.email) extra+=' · EMAIL:'+info.email;
+    if(info.phone) extra+=' · TEL:'+info.phone;
+    if(info.ip) extra+=' · IP:'+info.ip;
+    if(info.fp) extra+=' · FP:'+info.fp.slice(0,12);
+    if(info.type) extra+=' · BLOQUEIO:'+info.type;
+    el.textContent = 'CANDIDATO: '+(info.candidate||'-')+' · TRILHA: '+(info.track||'-')+extra+' · MOTIVO: '+reason+' · DATA: '+date+' · BLOQUEIO POR IP/DISPOSITIVO — VPN NÃO BURLA';
+  } else {
+    el.textContent = '';
+  }
+}
+function resetAllAndExitDisq(){
+  document.getElementById('disqualifiedScreen').classList.add('hidden');
+  // sai de fullscreen se estiver
+  try{ if(document.fullscreenElement && document.exitFullscreen) document.exitFullscreen(); }catch(e){}
+  resetAll();
+}
+
+async function handleViolation(reason){
+  if(!state || state.status === 'disqualified' || isDisqualified) return;
+  if(!fullscreenEnforced) return;
+  isDisqualified = true;
+  violationCount = (state.violationCount||0)+1;
+  state.violationCount = violationCount;
+  state.status = 'disqualified';
+  state.disqualifiedAt = Date.now();
+  state.reason = reason;
+  // captura IP e fingerprint antes de limpar timers
+  let ipfp=null;
+  try{ ipfp=await persistIPAndFingerprintBan(state.candidate, state.track, reason); }catch(e){}
+  // também detecta VPN no momento da violação (só informativo)
+  try{
+    if(ipfp && ipfp.ip){
+      const vpnInfo=await detectVPN(ipfp.ip);
+      if(vpnInfo.vpn) state.reason+=' [VPN/detecção: '+vpnInfo.org+']';
+    }
+  }catch(e){}
+  clearInterval(overallIntervalId);
+  clearInterval(questionIntervalId);
+  clearInterval(questionHeartbeat);
+  clearInterval(securityHeartbeat); clearInterval(ipCheckInterval);
+  try{ if(broadcastChannel) broadcastChannel.close(); }catch(e){}
+  const banKey = 'zaid_ban:'+state.track+':'+slug(state.candidate);
+  const emailBanKey = 'zaid_ban_email:'+(state.email||'').toLowerCase();
+  const phoneBanKey = 'zaid_ban_phone:'+(state.phoneDigits||digitsOnly(state.phone||''));
+  const banDataObj={candidate:state.candidate, email:state.email, phone:state.phone, phoneDigits:state.phoneDigits, track:state.track, disqualifiedAt:state.disqualifiedAt, reason:state.reason, violationCount:violationCount, ip: ipfp?ipfp.ip:null, fp: ipfp?ipfp.fp:null};
+  const banData = JSON.stringify(banDataObj);
+  await persistBan(banKey, banData);
+  try{ if(state.email) { await persistBan(emailBanKey, banData); localStorage.setItem(emailBanKey, banData); sessionStorage.setItem(emailBanKey, banData);} }catch(e){}
+  try{ if(state.phoneDigits) { await persistBan(phoneBanKey, banData); localStorage.setItem(phoneBanKey, banData); sessionStorage.setItem(phoneBanKey, banData);} }catch(e){}
+  // reforça IP ban em lista global também com o motivo
+  try{ if(ipfp && ipfp.ip){ const k='zaid_ipban:'+ipfp.ip; localStorage.setItem(k, banData); sessionStorage.setItem(k, banData); } }catch(e){}
+  const draftKey='zaid_draft:'+state.track+':'+slug(state.candidate)+':'+slug(state.email||'');
+  try{ await window.storage.set(draftKey, JSON.stringify(state), false); }catch(e){}
+  try{ localStorage.setItem(draftKey, JSON.stringify(state)); }catch(e){}
+  // compatibilidade com chave antiga
+  try{ localStorage.setItem('zaid_draft:'+state.track+':'+slug(state.candidate), JSON.stringify(state)); }catch(e){}
+  let msg='Motivo: '+state.reason+'. ';
+  if(ipfp && ipfp.ip) msg+='IP '+ipfp.ip+' banido. ';
+  msg+='Você saiu da tela cheia / trocou de aba. Conforme avisado, a vaga foi perdida completamente e seu IP/dispositivo foi bloqueado — mesmo com VPN você não terá mais acesso.';
+  document.getElementById('violationText').textContent = msg;
+  document.getElementById('violationModal').classList.remove('hidden');
+  // atualiza também tela de bloqueio para mostrar IP
+  try{
+    const el=document.getElementById('disqInfo');
+    if(el && ipfp) el.textContent+=' · IP_BAN:'+(ipfp.ip||'-')+' · FP:'+(ipfp.fp?ipfp.fp.slice(0,12):'-');
+  }catch(e){}
+  try{ if(navigator.vibrate) navigator.vibrate([300,100,300]); }catch(e){}
+  setTimeout(()=>{ try{ if(document.fullscreenElement && document.exitFullscreen) document.exitFullscreen(); }catch(e){} }, 600);
+}
+
+function acknowledgeDisqualification(){
+  document.getElementById('violationModal').classList.add('hidden');
+  const info={candidate:state?state.candidate:'', track:state?state.track:'', disqualifiedAt:state?state.disqualifiedAt:Date.now(), reason:state?state.reason:''};
+  showDisqualifiedScreen(info);
+  show('intake');
+  document.body.classList.remove('secure');
+  restoreClipboard();
+  clearInterval(securityHeartbeat); clearInterval(ipCheckInterval);
+  clearInterval(questionHeartbeat);
+  try{ if(broadcastChannel) broadcastChannel.close(); }catch(e){}
+  state = null;
+  fullscreenEnforced = false;
+  isDisqualified = false;
+  violationCount = 0;
+  try{ if(document.fullscreenElement && document.exitFullscreen) document.exitFullscreen(); }catch(e){}
+  resetToIntakeSoft();
+  document.getElementById('disqualifiedScreen').classList.remove('hidden');
+}
+
+function installSecurityListeners(){
+  // fullscreen change
+  document.addEventListener('fullscreenchange', ()=>{
+    if(fullscreenEnforced && !document.fullscreenElement && state && state.status !== 'disqualified'){
+      handleViolation('Saiu da tela cheia (fullscreen)');
+    }
+  });
+  document.addEventListener('webkitfullscreenchange', ()=>{
+    if(fullscreenEnforced && !document.fullscreenElement && state){
+      handleViolation('Saiu da tela cheia');
+    }
+  });
+  // visibilidade / troca de aba
+  document.addEventListener('visibilitychange', ()=>{
+    if(document.hidden && fullscreenEnforced && state && state.status !== 'disqualified'){
+      handleViolation('Trocou de aba / minimizou (visibilitychange)');
+    }
+  });
+  window.addEventListener('blur', ()=>{
+    if(fullscreenEnforced && state && state.status !== 'disqualified'){
+      // pequeno delay para evitar falso positivo ao clicar no próprio modal
+      setTimeout(()=>{
+        if(document.hidden || !document.hasFocus()){
+          handleViolation('Perdeu foco da janela (blur / alt-tab)');
+        }
+      }, 200);
+    }
+  });
+  window.addEventListener('pagehide', ()=>{
+    if(fullscreenEnforced && state) handleViolation('Saiu da página');
+  });
+  // beforeunload aviso
+  window.addEventListener('beforeunload', (e)=>{
+    if(fullscreenEnforced && state && state.status !== 'disqualified'){
+      e.preventDefault();
+      e.returnValue = 'Sair da avaliação resultará em DESCLASSIFICAÇÃO e perda da vaga.';
+      return e.returnValue;
+    }
+  });
+}
+
+/* ================= OVERALL TIMER ================= */
+function startOverallTimer(){
+  clearInterval(overallIntervalId);
+  overallIntervalId = setInterval(()=>{
+    const elapsed = (Date.now() - state.startedAt)/1000;
+    document.getElementById('overallTimer').textContent = formatHHMMSS(elapsed);
+  }, 1000);
+}
+
+/* ================= CASE LIST (rail) ================= */
+function renderCaseList(){
+  const ul = document.getElementById('caseList');
+  ul.innerHTML = '';
+  state.answers.forEach((a, idx)=>{
+    const li = document.createElement('li');
+    li.className = 'case-item' + (idx===state.currentIndex?' active':'') + (a.status==='done'?' done':'') + (a.status==='expired'?' expired':'');
+    li.innerHTML = '<span class="dot"></span><span class="code">'+a.code+'</span>';
+    li.onclick = ()=>{ jumpTo(idx); };
+    ul.appendChild(li);
+  });
+}
+function jumpTo(idx){
+  if(isDisqualified || (state && state.status==='disqualified')) return;
+  saveCurrentAnswerText();
+  persistQuestionTime();
+  state.currentIndex = idx;
+  if(!state.answers[idx].enterAt) state.answers[idx].enterAt = Date.now();
+  renderCaseList();
+  renderQuestion();
+}
+
+/* ================= QUESTION RENDER + TIMER ================= */
+function renderQuestion(){
+  const idx = state.currentIndex;
+  const q = state.answers[idx];
+  if(!q.enterAt) q.enterAt = Date.now();
+  if(typeof q.accumulated==='undefined') q.accumulated = q.timeSpent||0;
+  document.getElementById('caseCode').textContent = q.code;
+  document.getElementById('caseType').textContent = q.type;
+  document.getElementById('casePrompt').textContent = q.prompt;
+  const box = document.getElementById('answerBox');
+  box.value = q.text || '';
+  updateCharCount();
+  const expiredBanner = document.getElementById('expiredBanner');
+  if(q.status === 'expired'){
+    box.disabled = true;
+    expiredBanner.classList.remove('hidden');
+  }else{
+    box.disabled = false;
+    expiredBanner.classList.add('hidden');
+    setTimeout(()=>{ try{ box.focus(); }catch(e){} }, 50);
+  }
+  document.getElementById('btnPrev').disabled = idx===0;
+  document.getElementById('btnNext').textContent = (idx === state.answers.length-1) ? 'Finalizar avaliação' : 'Próximo';
+  startQuestionTimer();
+}
+
+let questionHeartbeat=null;
+function persistQuestionTime(){
+  if(!state) return;
+  const q = state.answers[state.currentIndex];
+  if(q && q.enterAt && q.status!=='expired'){
+    const elapsed = Math.floor((Date.now() - q.enterAt)/1000);
+    q.timeSpent = (q.accumulated||0) + elapsed;
+  }
+}
+function startQuestionTimer(){
+  clearInterval(questionIntervalId);
+  clearInterval(questionHeartbeat);
+  const idx = state.currentIndex;
+  const q = state.answers[idx];
+  if(!q.enterAt) q.enterAt = Date.now();
+  if(typeof q.accumulated==='undefined') q.accumulated = q.timeSpent||0;
+  const updateDisplay = ()=>{
+    const liveElapsed = q.status==='expired' ? 0 : Math.floor((Date.now() - q.enterAt)/1000);
+    const totalSpent = (q.accumulated||0) + liveElapsed;
+    const remaining = q.limit - totalSpent;
+    const el = document.getElementById('qTimer');
+    el.textContent = formatMMSS(remaining);
+    el.classList.remove('warn','critical');
+    if(remaining <= 30) el.classList.add('critical');
+    else if(remaining <= 90) el.classList.add('warn');
+    document.getElementById('qBarFill').style.width = Math.max(0,(remaining/q.limit*100))+'%';
+    q.timeSpent = totalSpent;
+    if(remaining <= 0 && q.status!=='expired'){
+      clearInterval(questionIntervalId);
+      clearInterval(questionHeartbeat);
+      q.status = 'expired';
+      q.timeSpent = q.limit;
+      document.getElementById('answerBox').disabled = true;
+      document.getElementById('expiredBanner').classList.remove('hidden');
+      renderCaseList();
+      persistDraft();
+    }
+  };
+  updateDisplay();
+  if(q.status === 'expired') return;
+  questionIntervalId = setInterval(updateDisplay, 250);
+  questionHeartbeat = setInterval(()=>{ persistDraft(); }, 1000);
+}
+
+function updateCharCount(){
+  const len = document.getElementById('answerBox').value.length;
+  document.getElementById('charCount').textContent = len + ' caracteres';
+}
+document.getElementById('answerBox').addEventListener('input', function(){
+  if(!state) return;
+  const q = state.answers[state.currentIndex];
+  q.text = this.value;
+  if(this.value.length - (q._lastLen||0) > 300){
+    this.value = q.text.slice(0, (q._lastLen||0)+1);
+    q.text = this.value;
+    showPasteToast();
+  }
+  q._lastLen = this.value.length;
+  updateCharCount();
+  clearTimeout(q._saveT);
+  q._saveT = setTimeout(()=>persistDraft(), 400);
+});
+
+function saveCurrentAnswerText(){
+  if(!state) return;
+  persistQuestionTime();
+  const q = state.answers[state.currentIndex];
+  q.text = document.getElementById('answerBox').value.slice(0, 20000);
+  if(q.status === 'pending' && q.text.trim().length > 0) q.status = 'done';
+  q.accumulated = q.timeSpent;
+  q.enterAt = Date.now();
+}
+async function persistDraft(){
+  if(!state) return;
+  try{ persistQuestionTime(); }catch(e){}
+  const base = 'zaid_draft:'+state.track+':'+slug(state.candidate)+':'+slug(state.email||'');
+  const key = base;
+  const payload = JSON.stringify(state);
+  try{ await window.storage.set(key, payload, false); }catch(e){}
+  try{ localStorage.setItem(key, payload); }catch(e){}
+  try{ sessionStorage.setItem(key, payload); }catch(e){}
+  // também salva chave antiga por compatibilidade
+  try{
+    const oldKey='zaid_draft:'+state.track+':'+slug(state.candidate);
+    localStorage.setItem(oldKey, payload);
+  }catch(e){}
+}
+function goPrev(){
+  if(isDisqualified) return;
+  saveCurrentAnswerText();
+  if(state.currentIndex > 0){
+    state.currentIndex -= 1;
+    if(!state.answers[state.currentIndex].enterAt) state.answers[state.currentIndex].enterAt = Date.now();
+    renderCaseList();
+    renderQuestion();
+    persistDraft();
+  }
+}
+function goNext(){
+  if(isDisqualified) return;
+  saveCurrentAnswerText();
+  persistDraft();
+  if(state.currentIndex < state.answers.length - 1){
+    state.currentIndex += 1;
+    if(!state.answers[state.currentIndex].enterAt) state.answers[state.currentIndex].enterAt = Date.now();
+    renderCaseList();
+    renderQuestion();
+  }else{
+    finalize();
+  }
+}
+
+function confirmAbort(){
+  if(confirm('Encerrar sem finalizar? O progresso fica salvo como rascunho neste navegador e pode ser retomado depois.')){
+    saveCurrentAnswerText();
+    persistDraft();
+    clearInterval(overallIntervalId);
+    clearInterval(questionIntervalId);
+    resetToIntakeSoft();
+  }
+}
+
+/* ================= FINALIZE / REPORT ================= */
+function finalize(){
+  clearInterval(overallIntervalId);
+  clearInterval(questionIntervalId);
+  state.finishedAt = Date.now();
+  renderReport();
+  show('report');
+}
+
+function renderReport(){
+  document.getElementById('repName').textContent = state.candidate;
+  document.getElementById('repTrack').textContent = state.track + ' — ' + TRACK_LABEL[state.track];
+  document.getElementById('repEmail').textContent = state.email || '—';
+  document.getElementById('repPhone').textContent = state.phone || '—';
+  document.getElementById('repDate').textContent = new Date(state.finishedAt || Date.now()).toLocaleString('pt-BR');
+  const totalSeconds = ((state.finishedAt||Date.now()) - state.startedAt)/1000;
+  document.getElementById('repTotal').textContent = formatHHMMSS(totalSeconds);
+
+  const container = document.getElementById('reportItems');
+  container.innerHTML = '';
+  state.answers.forEach(a=>{
+    const div = document.createElement('div');
+    div.className = 'report-item';
+    const statusLabel = a.status === 'expired' ? 'TEMPO ESGOTADO' : (a.status === 'done' ? 'CONCLUÍDO' : 'NÃO RESPONDIDO');
+    const statusClass = a.status === 'expired' ? 'expired' : (a.status === 'done' ? 'done' : '');
+    div.innerHTML = `
+      <div class="report-item-head">
+        <div>
+          <span class="code">${a.code}</span> · ${a.type}
+        </div>
+        <div class="status ${statusClass}">${statusLabel}</div>
+      </div>
+      <div class="report-prompt">${a.prompt}</div>
+      <div class="report-answer ${a.text.trim()? '' : 'empty'}">${a.text.trim() ? escapeHtml(a.text) : 'Sem resposta registrada.'}</div>
+      <div class="report-time">Tempo utilizado: ${formatMMSS(a.timeSpent)} de ${formatMMSS(a.limit)} disponíveis</div>
+    `;
+    container.appendChild(div);
+  });
+  document.getElementById('saveMsg').style.display = 'none';
+}
+
+function escapeHtml(str){
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+async function saveReport(){
+  try{
+    const key = 'zaid_eval:'+state.track+':'+slug(state.candidate)+':'+state.finishedAt;
+    await window.storage.set(key, JSON.stringify(state), false);
+    // clear draft since evaluation is now finalized
+    const draftKey = 'zaid_draft:'+state.track+':'+slug(state.candidate);
+    try{ await window.storage.delete(draftKey, false); }catch(e){}
+    document.getElementById('saveMsg').style.display = 'block';
+  }catch(e){
+    alert('Não foi possível salvar a avaliação neste navegador. Tente novamente.');
+  }
+}
+
+/* ================= SAVED LIST ================= */
+async function showSaved(){
+  show('saved');
+  const listEl = document.getElementById('savedList');
+  listEl.innerHTML = '<div class="empty-state">Carregando registros...</div>';
+  try{
+    const result = await window.storage.list('zaid_eval:', false);
+    const keys = (result && result.keys) ? result.keys : [];
+    if(keys.length === 0){
+      listEl.innerHTML = '<div class="empty-state">Nenhuma avaliação salva neste navegador ainda.</div>';
+      return;
+    }
+    listEl.innerHTML = '';
+    for(const key of keys.slice().reverse()){
+      try{
+        const rec = await window.storage.get(key, false);
+        const data = JSON.parse(rec.value);
+        const item = document.createElement('div');
+        item.className = 'saved-item';
+        const dateStr = new Date(data.finishedAt || data.startedAt).toLocaleString('pt-BR');
+        const emailPart = data.email ? ' · '+escapeHtml(data.email) : '';
+        const phonePart = data.phone ? ' · '+escapeHtml(data.phone) : '';
+        item.innerHTML = `
+          <div>
+            <div class="name">${escapeHtml(data.candidate)}</div>
+            <div class="sub">${escapeHtml(data.track)} — ${dateStr}${emailPart}${phonePart}</div>
+          </div>
+          <div class="arrow">ver →</div>
+        `;
+        item.onclick = ()=>{ viewSavedRecord(data); };
+        listEl.appendChild(item);
+      }catch(e){ /* skip corrupted record */ }
+    }
+  }catch(e){
+    listEl.innerHTML = '<div class="empty-state">Nenhuma avaliação salva neste navegador ainda.</div>';
+  }
+}
+function viewSavedRecord(data){
+  state = data;
+  renderReport();
+  show('report');
+  document.getElementById('saveMsg').style.display = 'none';
+}
+function backToIntake(){
+  show('intake');
+}
+
+/* ================= RESET ================= */
+function resetAll(){
+  state = null;
+  selectedTrack = null;
+  fullscreenEnforced = false;
+  isDisqualified = false;
+  violationCount = 0;
+  clearInterval(securityHeartbeat); clearInterval(ipCheckInterval); clearInterval(questionHeartbeat);
+  try{ if(broadcastChannel) broadcastChannel.close(); }catch(e){}
+  document.body.classList.remove('secure');
+  try{ if(document.fullscreenElement && document.exitFullscreen) document.exitFullscreen(); }catch(e){}
+  document.getElementById('inputName').value = '';
+  document.getElementById('inputEmail').value = '';
+  document.getElementById('inputPhone').value = '';
+  document.querySelectorAll('.field-error').forEach(e=>e.classList.add('hidden'));
+  document.querySelectorAll('.field input').forEach(e=>e.classList.remove('invalid'));
+  document.querySelectorAll('.track-option').forEach(el=>el.classList.remove('selected'));
+  document.getElementById('btnStart').disabled = true;
+  show('intake');
+}
+function resetToIntakeSoft(){
+  selectedTrack = null;
+  fullscreenEnforced = false;
+  clearInterval(securityHeartbeat); clearInterval(ipCheckInterval); clearInterval(questionHeartbeat);
+  try{ if(broadcastChannel) broadcastChannel.close(); }catch(e){}
+  document.body.classList.remove('secure');
+  try{ if(document.fullscreenElement && document.exitFullscreen) document.exitFullscreen(); }catch(e){}
+  // não zera ban, só reseta UI
+  document.getElementById('inputName').value = '';
+  document.getElementById('inputEmail').value = '';
+  document.getElementById('inputPhone').value = '';
+  document.querySelectorAll('.field-error').forEach(e=>e.classList.add('hidden'));
+  document.querySelectorAll('.field input').forEach(e=>e.classList.remove('invalid'));
+  document.querySelectorAll('.track-option').forEach(el=>el.classList.remove('selected'));
+  document.getElementById('btnStart').disabled = true;
+  show('intake');
+}
+
+/* ================= ATUALIZAÇÕES DE FINALIZE / ABORT P/ LIMPAR FULLSCREEN ================= */
+const _origFinalize = finalize;
+finalize = function(){
+  clearInterval(overallIntervalId);
+  clearInterval(questionIntervalId);
+  clearInterval(questionHeartbeat); clearInterval(securityHeartbeat); clearInterval(ipCheckInterval);
+  try{ if(broadcastChannel) broadcastChannel.close(); }catch(e){}
+  if(!state) return;
+  state.finishedAt = Date.now();
+  state.status = 'finished';
+  // libera fullscreen ao finalizar com sucesso
+  fullscreenEnforced = false;
+  document.body.classList.remove('secure');
+  try{ if(document.fullscreenElement && document.exitFullscreen) document.exitFullscreen(); }catch(e){}
+  renderReport();
+  show('report');
+  persistDraft();
+};
+
+const _origConfirmAbort = confirmAbort;
+confirmAbort = function(){
+  if(confirm('Encerrar sem finalizar? O progresso fica salvo como rascunho neste navegador e pode ser retomado depois.')){
+    saveCurrentAnswerText();
+    persistDraft();
+    clearInterval(overallIntervalId);
+    clearInterval(questionIntervalId);
+    clearInterval(questionHeartbeat); clearInterval(securityHeartbeat); clearInterval(ipCheckInterval);
+    try{ if(broadcastChannel) broadcastChannel.close(); }catch(e){}
+    fullscreenEnforced = false;
+    document.body.classList.remove('secure');
+    try{ if(document.fullscreenElement && document.exitFullscreen) document.exitFullscreen(); }catch(e){}
+    resetToIntakeSoft();
+  }
+};
+
+/* ================= ANTI-COLA HARDENED + HEARTBEAT + MULTI-BAN ================= */
+function showPasteToast(){
+  const t = document.getElementById('pasteToast');
+  if(!t) return;
+  t.classList.add('show');
+  clearTimeout(t._hide);
+  t._hide = setTimeout(()=> t.classList.remove('show'), 2500);
+}
+function blockEvent(e){
+  try{ e.preventDefault(); e.stopPropagation(); }catch(e2){}
+  if(e.type==='paste' || e.type==='drop' || e.type==='copy') showPasteToast();
+  return false;
+}
+let _origClipboardRead=null, _origClipboardReadText=null;
+function hijackClipboard(){
+  try{
+    if(navigator.clipboard){
+      _origClipboardRead = navigator.clipboard.read;
+      _origClipboardReadText = navigator.clipboard.readText;
+      Object.defineProperty(navigator.clipboard, 'read', {value: ()=>Promise.reject(new DOMException('Clipboard bloqueado','NotAllowedError')), configurable:true});
+      Object.defineProperty(navigator.clipboard, 'readText', {value: ()=>Promise.reject(new DOMException('Clipboard bloqueado','NotAllowedError')), configurable:true});
+    }
+  }catch(e){}
+}
+function restoreClipboard(){
+  try{
+    if(navigator.clipboard && _origClipboardReadText){
+      Object.defineProperty(navigator.clipboard, 'readText', {value:_origClipboardReadText, configurable:true});
+      Object.defineProperty(navigator.clipboard, 'read', {value:_origClipboardRead, configurable:true});
+    }
+  }catch(e){}
+}
+(function initAntiPasteHardened(){
+  const events=['copy','cut','paste','drop','dragover','dragstart','beforecopy','beforecut','beforepaste'];
+  events.forEach(evt=>{
+    document.addEventListener(evt, (e)=>{
+      if(document.body.classList.contains('secure') || (e.target && e.target.id==='answerBox')){
+        try{ e.preventDefault(); e.stopPropagation(); }catch(e2){}
+        try{ if(e.clipboardData) e.clipboardData.setData('text/plain',''); }catch(e2){}
+        try{ if(window.clipboardData) window.clipboardData.setData('Text',''); }catch(e2){}
+        if(evt==='paste' || evt==='drop' || evt==='beforepaste') showPasteToast();
+        return false;
+      }
+    }, true);
+    window.addEventListener(evt,(e)=>{
+      if(document.body.classList.contains('secure')){ try{ e.preventDefault(); e.stopPropagation(); }catch(e2){} }
+    }, true);
+  });
+  document.addEventListener('contextmenu', (e)=>{
+    if(document.body.classList.contains('secure') || (e.target && e.target.closest && e.target.closest('textarea, input'))){
+      try{ e.preventDefault(); e.stopPropagation(); }catch(e2){}
+      showPasteToast();
+      return false;
+    }
+  }, true);
+  document.addEventListener('keydown', (e)=>{
+    const mod = e.ctrlKey || e.metaKey;
+    const key = (e.key||'').toLowerCase();
+    const secure = document.body.classList.contains('secure');
+    if(secure){
+      if(e.key==='F12' || key==='f12'){ e.preventDefault(); e.stopPropagation(); return false; }
+      if(key==='printscreen' || e.code==='PrintScreen'){ e.preventDefault(); showPasteToast(); return false; }
+      if(mod && ['v','c','x'].includes(key)){
+        e.preventDefault(); e.stopPropagation(); showPasteToast(); return false;
+      }
+      if(mod && e.shiftKey && ['i','j','c','k'].includes(key)){ e.preventDefault(); e.stopPropagation(); return false; }
+      if(mod && key==='u'){ e.preventDefault(); return false; }
+      if(mod && key==='p'){ e.preventDefault(); return false; }
+      if(mod && key==='s'){ e.preventDefault(); return false; }
+    }
+  }, true);
+  document.addEventListener('keyup', (e)=>{
+    if(document.body.classList.contains('secure') && (e.key==='PrintScreen' || e.code==='PrintScreen')){
+      try{ navigator.clipboard.writeText(''); }catch(e2){}
+      showPasteToast();
+    }
+  }, true);
+  document.addEventListener('selectstart', (e)=>{
+    if(document.body.classList.contains('secure') && e.target && e.target.id!=='answerBox'){
+      e.preventDefault(); return false;
+    }
+  }, true);
+  document.addEventListener('dragstart', (e)=>{ if(document.body.classList.contains('secure')){ e.preventDefault(); return false; } }, true);
+  const box=document.getElementById('answerBox');
+  if(box){
+    ['paste','copy','cut','drop','contextmenu','dragover','dragstart'].forEach(evt=>{
+      box.addEventListener(evt, blockEvent, true);
+    });
+    box.setAttribute('autocomplete','off'); box.setAttribute('autocorrect','off'); box.setAttribute('autocapitalize','off'); box.setAttribute('spellcheck','false');
+  }
+  window.addEventListener('beforeprint', (e)=>{ if(document.body.classList.contains('secure')){ e.preventDefault(); alert('Impressão bloqueada durante a avaliação.'); return false; } }, true);
+})();
+let securityHeartbeat=null;
+let broadcastChannel=null;
+let ipCheckInterval=null;
+let initialIP=null;
+function startSecurityHeartbeat(){
+  clearInterval(securityHeartbeat); clearInterval(ipCheckInterval);
+  // captura IP inicial para detectar troca (VPN ligada no meio da prova)
+  (async()=>{ try{ initialIP=await getPublicIP(); }catch(e){} })();
+  try{
+    if('BroadcastChannel' in window && state){
+      const chName='zaid-lock:'+slug(state.candidate)+':'+state.track;
+      broadcastChannel=new BroadcastChannel(chName);
+      broadcastChannel.onmessage=(e)=>{
+        if(e.data==='zaid-lock-active' && fullscreenEnforced){
+          handleViolation('Segunda aba/janela detectada (BroadcastChannel)');
+        }
+      };
+      broadcastChannel.postMessage('zaid-lock-active');
+      setInterval(()=>{ try{ broadcastChannel.postMessage('zaid-lock-active'); }catch(e){} }, 1000);
+    }
+  }catch(e){}
+  try{
+    if(state){
+      const lockKey='zaid_lock:'+state.track+':'+slug(state.candidate);
+      localStorage.setItem(lockKey, Date.now().toString());
+      window.addEventListener('storage', (e)=>{
+        if(e.key===lockKey && fullscreenEnforced && e.newValue){
+          const other = parseInt(e.newValue||'0',10);
+          if(Math.abs(Date.now()-other)<3000) handleViolation('Múltiplas abas detectadas (storage)');
+        }
+      });
+    }
+  }catch(e){}
+  securityHeartbeat=setInterval(()=>{
+    if(!fullscreenEnforced || !state || state.status==='disqualified' || isDisqualified) return;
+    if(!document.fullscreenElement){
+      handleViolation('Heartbeat: tela cheia perdida');
+      return;
+    }
+    if(document.hidden || document.visibilityState!=='visible'){
+      handleViolation('Heartbeat: aba oculta/minimizada');
+      return;
+    }
+    if(!document.hasFocus()){
+      setTimeout(()=>{
+        if(!document.hasFocus() && fullscreenEnforced) handleViolation('Heartbeat: janela sem foco');
+      }, 600);
+    }
+    try{
+      const wDiff = window.outerWidth - window.innerWidth;
+      const hDiff = window.outerHeight - window.innerHeight;
+      if((wDiff>260 && window.innerWidth<900) || hDiff>260){
+        handleViolation('DevTools detectado (heartbeat)');
+        return;
+      }
+    }catch(e){}
+    try{
+      if(!document.getElementById('violationModal') || !document.getElementById('pasteToast')){
+        handleViolation('Tamper: elementos de segurança removidos');
+      }
+    }catch(e){}
+  }, 500);
+  // checa troca de IP a cada 5s (VPN no meio da prova = violação)
+  ipCheckInterval=setInterval(async()=>{
+    if(!fullscreenEnforced || !state || state.status==='disqualified' || isDisqualified) return;
+    try{
+      // força refresh periódico para detectar VPN (invalida cache 30% das vezes)
+      if(Math.random()<0.3) cachedIP=null;
+      const cur=await getPublicIP();
+      if(cur && initialIP && cur!==initialIP){
+        handleViolation('Troca de IP detectada (VPN/proxy ligado durante a prova) — '+initialIP+' → '+cur);
+      }
+      if(!initialIP && cur) initialIP=cur;
+    }catch(e){}
+  }, 5000);
+}
+(function initTamperObserver(){
+  const obs=new MutationObserver((muts)=>{
+    if(!document.body.classList.contains('secure')) return;
+    muts.forEach(m=>{
+      m.removedNodes.forEach(n=>{
+        if(n && n.id && ['violationModal','disqualifiedScreen','pasteToast','fullscreenGate'].includes(n.id)){
+          document.body.appendChild(n);
+          if(n.id==='violationModal' || n.id==='disqualifiedScreen') n.classList.remove('hidden');
+          handleViolation('Tamper: remoção de overlay');
+        }
+      });
+    });
+  });
+  obs.observe(document.documentElement, {childList:true, subtree:true});
+})();
+async function persistBan(banKey, banData){
+  try{ await window.storage.set(banKey, banData, false); }catch(e){}
+  try{ localStorage.setItem(banKey, banData); }catch(e){}
+  try{ sessionStorage.setItem(banKey, banData); }catch(e){}
+  try{ document.cookie = banKey+'='+encodeURIComponent(banData)+'; path=/; max-age=31536000; SameSite=Lax'; }catch(e){}
+  try{
+    const req=indexedDB.open('zaid_db',1);
+    req.onupgradeneeded=(e)=>{ const db=e.target.result; if(!db.objectStoreNames.contains('bans')) db.createObjectStore('bans'); if(!db.objectStoreNames.contains('ipbans')) db.createObjectStore('ipbans'); if(!db.objectStoreNames.contains('fpbans')) db.createObjectStore('fpbans'); };
+    req.onsuccess=(e)=>{ const db=e.target.result; try{ const tx=db.transaction('bans','readwrite'); tx.objectStore('bans').put(banData, banKey);}catch(e){} };
+  }catch(e){}
+}
+function isBanned(track, sName){
+  const banKey='zaid_ban:'+track+':'+sName;
+  try{ if(localStorage.getItem(banKey)) return JSON.parse(localStorage.getItem(banKey)); }catch(e){}
+  try{ if(sessionStorage.getItem(banKey)) return JSON.parse(sessionStorage.getItem(banKey)); }catch(e){}
+  try{
+    const m=document.cookie.match(new RegExp('(?:^|; )'+banKey.replace(/:/g,'\\:')+'=([^;]*)'));
+    if(m) return JSON.parse(decodeURIComponent(m[1]));
+  }catch(e){}
+  return null;
+}
+/* ================= IP PÚBLICO + FINGERPRINT — ANTI-VPN ================= */
+let cachedIP=null, cachedIPInfo=null;
+async function getPublicIP(){
+  if(cachedIP) return cachedIP;
+  const providers=[
+    'https://api.ipify.org?format=json',
+    'https://api64.ipify.org?format=json',
+    'https://ipapi.co/json/'
+  ];
+  for(const url of providers){
+    try{
+      const r=await fetch(url, {cache:'no-store'});
+      if(!r.ok) continue;
+      const j=await r.json();
+      const ip=j.ip||j.ipAddress||null;
+      if(ip){ cachedIP=ip; if(j.org||j.asn) cachedIPInfo=j; if(url.includes('ipapi.co')) cachedIPInfo=j; return ip; }
+    }catch(e){}
+  }
+  return null;
+}
+async function getIPInfo(ip){
+  if(cachedIPInfo && cachedIPInfo.ip===ip) return cachedIPInfo;
+  try{
+    const r=await fetch('https://ipapi.co/'+ip+'/json/', {cache:'no-store'});
+    if(r.ok){ const j=await r.json(); cachedIPInfo=j; return j; }
+  }catch(e){}
+  return null;
+}
+function simpleHash(str){
+  let h=0; for(let i=0;i<str.length;i++){ h=((h<<5)-h)+str.charCodeAt(i); h|=0; } return 'fp_'+Math.abs(h).toString(36)+'_'+str.length.toString(36);
+}
+async function getFingerprint(){
+  try{
+    const parts=[
+      navigator.userAgent||'',
+      navigator.language||'',
+      (navigator.languages||[]).join(','),
+      screen.width+'x'+screen.height+'x'+screen.colorDepth,
+      new Date().getTimezoneOffset(),
+      Intl.DateTimeFormat().resolvedOptions().timeZone||'',
+      navigator.hardwareConcurrency||'',
+      navigator.deviceMemory||'',
+      (navigator.plugins||[]).length
+    ];
+    // canvas fingerprint simples
+    try{
+      const c=document.createElement('canvas'); c.width=200; c.height=50;
+      const ctx=c.getContext('2d'); ctx.textBaseline='top'; ctx.font='14px Arial'; ctx.fillStyle='#000'; ctx.fillText('zaid_fp_'+parts.join('|').slice(0,50), 2, 2);
+      parts.push(c.toDataURL().slice(-80));
+    }catch(e){}
+    const raw=parts.join('###');
+    if(window.crypto && crypto.subtle){
+      const buf=await crypto.subtle.digest('SHA-256', new TextEncoder().encode(raw));
+      return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('').slice(0,32);
+    }
+    return simpleHash(raw);
+  }catch(e){ return simpleHash(navigator.userAgent||'unknown'); }
+}
+async function persistIPAndFingerprintBan(candidate, track, reason){
+  try{
+    const ip=await getPublicIP();
+    const fp=await getFingerprint();
+    const now=Date.now();
+    const ipBanData=JSON.stringify({candidate, track, ip, fp, reason, at:now});
+    // lista global de IPs banidos
+    try{
+      const listKey='zaid_ban_ips';
+      let list=[]; try{ list=JSON.parse(localStorage.getItem(listKey)||'[]'); }catch(e){}
+      if(ip && !list.includes(ip)){ list.push(ip); localStorage.setItem(listKey, JSON.stringify(list)); sessionStorage.setItem(listKey, JSON.stringify(list)); try{ document.cookie=listKey+'='+encodeURIComponent(JSON.stringify(list))+'; path=/; max-age=31536000; SameSite=Lax'; }catch(e){} }
+    }catch(e){}
+    try{
+      const fpKey='zaid_ban_fps';
+      let fplist=[]; try{ fplist=JSON.parse(localStorage.getItem(fpKey)||'[]'); }catch(e){}
+      if(fp && !fplist.includes(fp)){ fplist.push(fp); localStorage.setItem(fpKey, JSON.stringify(fplist)); sessionStorage.setItem(fpKey, JSON.stringify(fplist)); }
+    }catch(e){}
+    // também grava ban por IP individual (para checagem direta)
+    if(ip){
+      const ipKey='zaid_ipban:'+ip;
+      await persistBan(ipKey, ipBanData);
+      try{ localStorage.setItem(ipKey, ipBanData); }catch(e){}
+    }
+    if(fp){
+      const fpKey2='zaid_fpban:'+fp;
+      await persistBan(fpKey2, ipBanData);
+      try{ localStorage.setItem(fpKey2, ipBanData); }catch(e){}
+    }
+    // tenta também armazenar em IndexedDB dedicado
+    try{
+      const req=indexedDB.open('zaid_db',1);
+      req.onsuccess=(e)=>{
+        try{
+          const db=e.target.result;
+          if(ip){ try{ db.transaction('ipbans','readwrite').objectStore('ipbans').put(ipBanData, ip); }catch(e){} }
+          if(fp){ try{ db.transaction('fpbans','readwrite').objectStore('fpbans').put(ipBanData, fp); }catch(e){} }
+        }catch(e){}
+      };
+    }catch(e){}
+    return {ip, fp};
+  }catch(e){ return {ip:null, fp:null}; }
+}
+async function isIPOrFingerprintBanned(){
+  try{
+    const ip=await getPublicIP();
+    const fp=await getFingerprint();
+    // checa IP
+    if(ip){
+      const ipKey='zaid_ipban:'+ip;
+      try{ if(localStorage.getItem(ipKey)) return {type:'ip', ip, data:JSON.parse(localStorage.getItem(ipKey))}; }catch(e){}
+      try{ if(sessionStorage.getItem(ipKey)) return {type:'ip', ip, data:JSON.parse(sessionStorage.getItem(ipKey))}; }catch(e){}
+      try{ const v=document.cookie.match(new RegExp('(?:^|; )'+ipKey.replace(/:/g,'\\:')+'=([^;]*)')); if(v) return {type:'ip', ip, data:JSON.parse(decodeURIComponent(v[1]))}; }catch(e){}
+      // lista global
+      try{ const list=JSON.parse(localStorage.getItem('zaid_ban_ips')||'[]'); if(list.includes(ip)) return {type:'ip', ip, data:{ip}}; }catch(e){}
+    }
+    if(fp){
+      const fpKey='zaid_fpban:'+fp;
+      try{ if(localStorage.getItem(fpKey)) return {type:'fingerprint', fp, data:JSON.parse(localStorage.getItem(fpKey))}; }catch(e){}
+      try{ if(sessionStorage.getItem(fpKey)) return {type:'fingerprint', fp, data:JSON.parse(sessionStorage.getItem(fpKey))}; }catch(e){}
+      try{ const list=JSON.parse(localStorage.getItem('zaid_ban_fps')||'[]'); if(list.includes(fp)) return {type:'fingerprint', fp, data:{fp}}; }catch(e){}
+    }
+  }catch(e){}
+  return null;
+}
+async function detectVPN(ip){
+  try{
+    const info= ip ? await getIPInfo(ip) : null;
+    if(!info) return {vpn:false};
+    const org=(info.org||info.asn||'').toLowerCase();
+    const vpnKeywords=['vpn','hosting','datacenter','data center','cloud','digitalocean','amazon','aws','ovh','hetzner','linode','vultr','colo','server'];
+    const isVPN=vpnKeywords.some(k=>org.includes(k));
+    // também checa fuso horário vs timezone do IP
+    const tzMismatch = info.timezone && Intl.DateTimeFormat().resolvedOptions().timeZone !== info.timezone;
+    return {vpn:isVPN, org:info.org, tzMismatch, info};
+  }catch(e){ return {vpn:false}; }
+}
+/* ================= MODO AVALIADOR — GABARITO OCULTO ================= */
+const EVAL_PASSWORD="zaid2026"; // troque aqui se quiser
+let currentEvalTrack='CTO';
+function openEvaluator(){
+  const pass=prompt('🔒 Modo avaliador — digite a senha para ver o gabarito oculto:');
+  if(pass===null) return;
+  if(pass!==EVAL_PASSWORD){ alert('Senha incorreta.'); return; }
+  document.getElementById('evaluatorPanel').classList.remove('hidden');
+  switchEval(currentEvalTrack);
+}
+function closeEvaluator(){
+  document.getElementById('evaluatorPanel').classList.add('hidden');
+}
+function switchEval(track){
+  currentEvalTrack=track;
+  const container=document.getElementById('evalContent');
+  container.innerHTML='';
+  const bank=QUESTIONS[track];
+  bank.forEach(q=>{
+    const sol=(SOLUTIONS[track]&&SOLUTIONS[track][q.code])||{criterios:["Sem critério cadastrado"], peso:0};
+    const div=document.createElement('div');
+    div.className='eval-q';
+    const criteriosHtml = (sol.criterios||[]).map(c=>'<li>'+escapeHtml(c)+'</li>').join('');
+    const armadilhasHtml = sol.armadilhas ? '<div class="mono" style="font-size:11px;letter-spacing:0.06em;color:#000;margin-top:10px;">✘ ARMADILHAS (desconta ponto):</div><ul class="crit">'+sol.armadilhas.map(a=>'<li>'+escapeHtml(a)+'</li>').join('')+'</ul>' : '';
+    div.innerHTML=
+      '<div style="display:flex;justify-content:space-between;align-items:center;gap:12px;">'+
+        '<span class="code">'+escapeHtml(q.code)+'</span>'+
+        '<span class="mono" style="font-size:11px;color:#555;">'+escapeHtml(q.type)+' · '+Math.floor(q.limit/60)+' min · peso '+(sol.peso||0)+'</span>'+
+      '</div>'+
+      '<div style="font-family:\'Newsreader\',serif;font-size:15px;margin:10px 0 8px;color:#000;">'+escapeHtml(q.prompt)+'</div>'+
+      '<div style="border-top:1px solid #D6D6D6;padding-top:10px;">'+
+        '<div class="mono" style="font-size:11px;letter-spacing:0.06em;color:#000;">✔ O QUE AVALIAR (gabarito):</div>'+
+        '<ul class="crit">'+criteriosHtml+'</ul>'+
+        armadilhasHtml+
+        '<div class="peso">Peso: '+(sol.peso||0)+' — use para nota ponderada.</div>'+
+      '</div>';
+    container.appendChild(div);
+  });
+}
+function downloadGabarito(){
+  let txt='ZAID — GABARITO FICTÍCIO → REAL (confidencial)\nGerado em '+new Date().toLocaleString('pt-BR')+'\n\nMAPEAMENTO DE PROTEÇÃO:\n- HELIX-API (fictícia) = ZAID-API (real)\n- OMEGA LLM (fictícia) = Claude (real)\n- AGÊNCIA AURORA / CERT AURORA (fictícias) = USCYBERCOM/Project Zero (real)\n- Células HELIX = Squads ZAID\n\n';
+  ['CTO','CISO'].forEach(track=>{
+    txt+='\n========== '+track+' ==========\n';
+    QUESTIONS[track].forEach(q=>{
+      const s=SOLUTIONS[track][q.code]||{};
+      txt+='\n'+q.code+' — '+q.type+' — peso '+(s.peso||0)+'\nPergunta: '+q.prompt+'\n';
+      txt+='Critérios: '+((s.criterios||[]).join(' | '))+'\n';
+      if(s.armadilhas) txt+='Armadilhas: '+s.armadilhas.join(' | ')+'\n';
+    });
+  });
+  const blob=new Blob([txt],{type:'text/plain;charset=utf-8'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a'); a.href=url; a.download='zaid-gabarito-ficticio-'+Date.now()+'.txt'; a.click();
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+function copyEvalLink(){
+  const map=`Mapeamento fictício→real:\nHELIX-API = ZAID-API\nOMEGA = Claude\nAURORA/CERT = USCYBERCOM/Project Zero\nCélulas = Squads\nEntregue ao candidato só o fictício.`;
+  try{ navigator.clipboard.writeText(map); alert('Mapeamento copiado.'); }catch(e){ prompt('Copie manualmente:', map); }
+}
+// atalho secreto: Ctrl+Shift+E abre avaliador
+document.addEventListener('keydown',(e)=>{
+  if(e.ctrlKey && e.shiftKey && e.key.toLowerCase()==='e'){
+    e.preventDefault();
+    openEvaluator();
+  }
+});
+/* ================= PÁGINA ADMIN — JS ================= */
+const ADMIN_PASSWORD="adminzaid2026"; // troque aqui — admin vê tudo
+let adminData=[];
+function openAdmin(){
+  const pass=prompt('👁️ Admin — digite a senha para ver todas as respostas:');
+  if(pass===null) return;
+  if(pass!==ADMIN_PASSWORD && pass!==EVAL_PASSWORD){ alert('Senha incorreta.'); return; }
+  document.getElementById('adminPanel').classList.remove('hidden');
+  loadAdminData();
+}
+function closeAdmin(){ document.getElementById('adminPanel').classList.add('hidden'); document.getElementById('adminDetail').classList.add('hidden'); }
+async function loadAdminData(){
+  const tbody=document.getElementById('adminTbody');
+  tbody.innerHTML='<tr><td colspan="8" style="text-align:center;color:#9A9A9A;padding:20px;">Carregando avaliações...</td></tr>';
+  adminData=[];
+  // coleta de window.storage (zaid_eval) e localStorage
+  const keysSet=new Set();
+  try{
+    const res=await window.storage.list('zaid_eval:', false);
+    (res.keys||[]).forEach(k=>keysSet.add(k));
+  }catch(e){}
+  try{ for(let i=0;i<localStorage.length;i++){ const k=localStorage.key(i); if(k&&k.startsWith('zaid_eval:')) keysSet.add(k); } }catch(e){}
+  try{ for(let i=0;i<sessionStorage.length;i++){ const k=sessionStorage.key(i); if(k&&k.startsWith('zaid_eval:')) keysSet.add(k); } }catch(e){}
+  // também rascunhos/banidos para mostrar quem foi desclassificado
+  try{
+    const res2=await window.storage.list('zaid_draft:', false);
+    (res2.keys||[]).forEach(k=>{ if(!keysSet.has(k)) keysSet.add(k); });
+  }catch(e){}
+  try{ for(let i=0;i<localStorage.length;i++){ const k=localStorage.key(i); if(k&&k.startsWith('zaid_draft:')) keysSet.add(k); } }catch(e){}
+  const all=[];
+  for(const key of keysSet){
+    try{
+      let rec=null;
+      try{ rec=await window.storage.get(key,false); }catch(e){}
+      let data=null;
+      if(rec && rec.value) data=JSON.parse(rec.value);
+      else{
+        const v=localStorage.getItem(key)||sessionStorage.getItem(key);
+        if(v) data=JSON.parse(v);
+      }
+      if(data && data.candidate) all.push({key, data});
+    }catch(e){}
+  }
+  // ordena por data decrescente
+  all.sort((a,b)=> (b.data.finishedAt||b.data.startedAt||0) - (a.data.finishedAt||a.data.startedAt||0));
+  adminData=all;
+  renderAdminTable(all);
+  // contadores
+  try{
+    document.getElementById('adminTotal').textContent=all.length;
+    document.getElementById('adminOk').textContent=all.filter(x=>x.data.status==='finished'||x.data.status==='done'||x.data.status==='active'&&x.data.answers&&x.data.answers.some(a=>a.text)).length;
+    document.getElementById('adminBan').textContent=all.filter(x=>x.data.status==='disqualified').length;
+    // drafts = sem finishedAt e status active mas não finalizado
+    document.getElementById('adminDraft').textContent=all.filter(x=>!x.data.finishedAt && x.data.status!=='disqualified').length;
+  }catch(e){}
+}
+function renderAdminTable(list){
+  const tbody=document.getElementById('adminTbody');
+  if(!list.length){ tbody.innerHTML='<tr><td colspan="8" style="text-align:center;color:#9A9A9A;padding:20px;">Nenhuma avaliação encontrada neste navegador.</td></tr>'; return; }
+  tbody.innerHTML='';
+  list.forEach(({key, data}, idx)=>{
+    const date=new Date(data.finishedAt||data.startedAt).toLocaleString('pt-BR');
+    const total=data.finishedAt? formatHHMMSS((data.finishedAt-data.startedAt)/1000) : formatHHMMSS((Date.now()-data.startedAt)/1000)+' (em curso)';
+    const status = data.status==='disqualified' ? '<span class="badge ban">BANIDO</span>' :
+                   data.status==='finished' ? '<span class="badge ok">CONCLUÍDO</span>' :
+                   data.status==='expired' ? '<span class="badge pending">EXPIRADO</span>' : '<span class="badge pending">'+escapeHtml(data.status||'RASCUNHO')+'</span>';
+    const tr=document.createElement('tr');
+    tr.innerHTML=`
+      <td><b>${escapeHtml(data.candidate||'-')}</b></td>
+      <td>${escapeHtml(data.email||'-')}</td>
+      <td>${escapeHtml(data.phone||data.phoneDigits||'-')}</td>
+      <td>${escapeHtml(data.track||'-')}</td>
+      <td>${escapeHtml(date)}</td>
+      <td>${escapeHtml(total)}</td>
+      <td>${status}</td>
+      <td><button class="btn-ghost" style="padding:6px 10px;font-size:11px;" onclick="showAdminDetail(${idx})">Ver tudo</button></td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+function filterAdmin(){
+  const q=(document.getElementById('adminSearch').value||'').toLowerCase();
+  if(!q){ renderAdminTable(adminData); return; }
+  const filtered=adminData.filter(({data})=> (
+    (data.candidate||'').toLowerCase().includes(q) ||
+    (data.email||'').toLowerCase().includes(q) ||
+    (data.phone||'').toLowerCase().includes(q) ||
+    (data.phoneDigits||'').includes(q.replace(/\D/g,'')) ||
+    (data.track||'').toLowerCase().includes(q)
+  ));
+  renderAdminTable(filtered);
+}
+function showAdminDetail(idx){
+  const {data, key}=adminData[idx];
+  const detail=document.getElementById('adminDetail');
+  const total=data.finishedAt? formatHHMMSS((data.finishedAt-data.startedAt)/1000) : '—';
+  let html=`
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;">
+      <div>
+        <div class="mono" style="font-size:11px;letter-spacing:0.08em;color:#555;">DETALHE COMPLETO — ${escapeHtml(key)}</div>
+        <h3 style="margin:6px 0 0;">${escapeHtml(data.candidate||'-')} — ${escapeHtml(data.track||'-')}</h3>
+        <div class="mono" style="font-size:12px;color:#333;margin-top:6px;">
+          E-mail: <b>${escapeHtml(data.email||'-')}</b> · WhatsApp: <b>${escapeHtml(data.phone||'-')}</b> · Dígitos: ${escapeHtml(data.phoneDigits||'-')}<br>
+          Data: ${escapeHtml(new Date(data.finishedAt||data.startedAt).toLocaleString('pt-BR'))} · Tempo total: ${escapeHtml(total)} · Status: <b>${escapeHtml(data.status||'-')}</b> ${data.reason? '· Motivo: '+escapeHtml(data.reason):''}<br>
+          ${data.ip? 'IP: '+escapeHtml(data.ip)+' · ':''}${data.fp? 'FP: '+escapeHtml(data.fp.slice(0,16))+' · ':''}Violations: ${data.violationCount||0}
+        </div>
+      </div>
+      <button class="btn-ghost" style="width:auto;padding:8px 12px;" onclick="document.getElementById('adminDetail').classList.add('hidden')">Fechar</button>
+    </div>
+    <div style="display:flex;gap:8px;margin:14px 0;flex-wrap:wrap;">
+      <button class="btn-ghost" style="width:auto;padding:8px 12px;font-size:11px;" onclick="copyAdminDetail(${idx})">Copiar dados</button>
+      <button class="btn-ghost" style="width:auto;padding:8px 12px;font-size:11px;" onclick="deleteAdminEntry(${idx})">Excluir</button>
+      <button class="btn-ghost" style="width:auto;padding:8px 12px;font-size:11px;" onclick="clearBanFor(${idx})">Desbanir IP/e-mail/telefone</button>
+    </div>
+    <h3>Respostas dissertativas (${(data.answers||[]).length})</h3>
+  `;
+  (data.answers||[]).forEach(a=>{
+    const answered = a.text && a.text.trim().length>0;
+    html+=`
+      <div class="admin-answer ${answered?'':'empty'}">
+        <div style="display:flex;justify-content:space-between;gap:12px;">
+          <b>${escapeHtml(a.code)} — ${escapeHtml(a.type)}</b>
+          <span class="mono" style="font-size:11px;color:#555;">${a.status} · ${formatMMSS(a.timeSpent||0)} / ${formatMMSS(a.limit||0)}</span>
+        </div>
+        <div style="font-size:12px;color:#555;margin:6px 0;">${escapeHtml(a.prompt||'')}</div>
+        <div style="border-top:1px solid #EAEAEA;margin-top:8px;padding-top:8px;white-space:pre-wrap;">${answered? escapeHtml(a.text) : '<i>Sem resposta</i>'}</div>
+      </div>
+    `;
+  });
+  detail.innerHTML=html;
+  detail.classList.remove('hidden');
+  detail.scrollIntoView({behavior:'smooth', block:'start'});
+}
+function copyAdminDetail(idx){
+  const {data}=adminData[idx];
+  const txt=`CANDIDATO: ${data.candidate}\nE-MAIL: ${data.email||'-'}\nWHATSAPP: ${data.phone||'-'} (${data.phoneDigits||'-'})\nTRILHA: ${data.track}\nDATA: ${new Date(data.finishedAt||data.startedAt).toLocaleString('pt-BR')}\nTEMPO: ${data.finishedAt? formatHHMMSS((data.finishedAt-data.startedAt)/1000):'-'}\nSTATUS: ${data.status}\nIP: ${data.ip||'-'} FP: ${data.fp||'-'}\n\n` + (data.answers||[]).map(a=> `[${a.code} ${a.type} ${a.status} ${formatMMSS(a.timeSpent||0)}/${formatMMSS(a.limit||0)}]\n${a.prompt}\nRESPOSTA: ${a.text||'(sem resposta)'}\n`).join('\n---\n');
+  try{ navigator.clipboard.writeText(txt); alert('Dados copiados!'); }catch(e){ prompt('Copie manualmente:', txt); }
+}
+async function deleteAdminEntry(idx){
+  if(!confirm('Excluir esta avaliação permanentemente?')) return;
+  const {key}=adminData[idx];
+  try{ await window.storage.delete(key,false); }catch(e){}
+  try{ localStorage.removeItem(key); sessionStorage.removeItem(key); }catch(e){}
+  adminData.splice(idx,1);
+  renderAdminTable(adminData);
+  document.getElementById('adminDetail').classList.add('hidden');
+}
+async function clearBanFor(idx){
+  const {data}=adminData[idx];
+  if(!confirm('Desbanir IP/e-mail/telefone de '+data.candidate+'? Ele poderá refazer a prova.')) return;
+  const keys=[];
+  if(data.email) keys.push('zaid_ban_email:'+data.email.toLowerCase());
+  if(data.phoneDigits) keys.push('zaid_ban_phone:'+data.phoneDigits);
+  if(data.candidate && data.track) keys.push('zaid_ban:'+data.track+':'+slug(data.candidate));
+  if(data.ip) keys.push('zaid_ipban:'+data.ip);
+  if(data.fp) keys.push('zaid_fpban:'+data.fp);
+  for(const k of keys){
+    try{ await window.storage.delete(k,false); }catch(e){}
+    try{ localStorage.removeItem(k); sessionStorage.removeItem(k); document.cookie=k+'=; Max-Age=0; path=/'; }catch(e){}
+  }
+  // também remove da lista global
+  try{
+    let list=JSON.parse(localStorage.getItem('zaid_ban_ips')||'[]');
+    if(data.ip) { list=list.filter(x=>x!==data.ip); localStorage.setItem('zaid_ban_ips', JSON.stringify(list)); }
+  }catch(e){}
+  try{
+    let fpl=JSON.parse(localStorage.getItem('zaid_ban_fps')||'[]');
+    if(data.fp) { fpl=fpl.filter(x=>x!==data.fp); localStorage.setItem('zaid_ban_fps', JSON.stringify(fpl)); }
+  }catch(e){}
+  alert('Desbanido! Keys limpas: '+keys.join(', '));
+}
+function exportAdminCSV(){
+  if(!adminData.length){ alert('Nada para exportar.'); return; }
+  const headers=['nome','email','telefone','trilha','data','tempo_total','status','ip','fp','violationCount','respostas_json'];
+  const rows=adminData.map(({data})=>{
+    const date=new Date(data.finishedAt||data.startedAt).toISOString();
+    const total=data.finishedAt? Math.round((data.finishedAt-data.startedAt)/1000) : '';
+    const respostas=(data.answers||[]).map(a=> `${a.code}: ${a.text.replace(/"/g,'""').slice(0,200)}`).join(' | ');
+    return [data.candidate||'', data.email||'', data.phone||'', data.track||'', date, total, data.status||'', data.ip||'', data.fp||'', data.violationCount||0, '"'+respostas.replace(/"/g,'""')+'"'];
+  });
+  const csv=[headers.join(','), ...rows.map(r=> r.map(v=> '"'+String(v).replace(/"/g,'""')+'"').join(','))].join('\n');
+  const blob=new Blob([csv],{type:'text/csv;charset=utf-8'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a'); a.href=url; a.download='zaid-admin-'+Date.now()+'.csv'; a.click();
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+function exportAdminJSON(){
+  if(!adminData.length){ alert('Nada para exportar.'); return; }
+  const payload=adminData.map(({key,data})=> ({key, ...data}));
+  const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a'); a.href=url; a.download='zaid-admin-'+Date.now()+'.json'; a.click();
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+// atalho admin: Ctrl+Shift+A
+document.addEventListener('keydown',(e)=>{
+  if(e.ctrlKey && e.shiftKey && e.key.toLowerCase()==='a'){
+    e.preventDefault();
+    openAdmin();
+  }
+});
+</script>
+</body>
+</html>
