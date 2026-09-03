@@ -93,11 +93,11 @@ function slug(s){ return (s||'').toLowerCase().normalize('NFD').replace(/[\u0300
 function formatMMSS(s){ s=Math.max(0,Math.round(s)); const m=Math.floor(s/60).toString().padStart(2,'0'); const sec=(s%60).toString().padStart(2,'0'); return m+':'+sec; }
 function formatHHMMSS(s){ s=Math.max(0,Math.round(s)); const h=Math.floor(s/3600).toString().padStart(2,'0'); const m=Math.floor((s%3600)/60).toString().padStart(2,'0'); const sec=(s%60).toString().padStart(2,'0'); return h+':'+m+':'+sec; }
 function esc(s){ const d=document.createElement('div'); d.textContent=s||''; return d.innerHTML; }
-let data=[];
+let adminData=[];
 async function load(){
   const tbody=document.getElementById('tbody');
   tbody.innerHTML='<tr><td colspan="8" style="text-align:center;color:#9A9A9A;padding:20px;">Carregando...</td></tr>';
-  data=[];
+  adminData=[];
   const keys=new Set();
   try{ const r=await window.storage.list('zaid_eval:', false); (r.keys||[]).forEach(k=>keys.add(k)); }catch(e){}
   try{ for(let i=0;i<localStorage.length;i++){ const k=localStorage.key(i); if(k&&k.startsWith('zaid_eval:')) keys.add(k); } }catch(e){}
@@ -113,7 +113,7 @@ async function load(){
     }catch(e){}
   }
   all.sort((a,b)=>(b.data.finishedAt||b.data.startedAt||0)-(a.data.finishedAt||a.data.startedAt||0));
-  data=all;
+  adminData=all;
   render(all);
   document.getElementById('total').textContent=all.length;
   document.getElementById('ok').textContent=all.filter(x=>x.data.status==='finished').length;
@@ -124,23 +124,32 @@ function render(list){
   const tbody=document.getElementById('tbody');
   if(!list.length){ tbody.innerHTML='<tr><td colspan="8" style="text-align:center;color:#9A9A9A;padding:20px;">Nenhuma avaliação neste navegador. As respostas ficam salvas onde o candidato fez a prova.</td></tr>'; return; }
   tbody.innerHTML='';
+  // guarda lista filtrada para index correto
+  window._lastRender=list;
   list.forEach(({key,data}, idx)=>{
     const date=new Date(data.finishedAt||data.startedAt).toLocaleString('pt-BR');
     const total=data.finishedAt? formatHHMMSS((data.finishedAt-data.startedAt)/1000) : '—';
     const badge=data.status==='disqualified'?'<span class="badge ban">BANIDO</span>': data.status==='finished'?'<span class="badge ok">CONCLUÍDO</span>':'<span class="badge pending">'+esc(data.status||'RASCUNHO')+'</span>';
     const tr=document.createElement('tr');
-    tr.innerHTML=`<td><b>${esc(data.candidate||'-')}</b></td><td>${esc(data.email||'-')}</td><td>${esc(data.phone||data.phoneDigits||'-')}</td><td>${esc(data.track||'-')}</td><td>${esc(date)}</td><td>${esc(total)}</td><td>${badge}</td><td><button class="btn" style="padding:6px 10px;font-size:11px;" onclick="showDetail(${idx})">Ver tudo</button></td>`;
+    tr.innerHTML=`<td><b>${esc(data.candidate||'-')}</b></td><td>${esc(data.email||'-')}</td><td>${esc(data.phone||data.phoneDigits||'-')}</td><td>${esc(data.track||'-')}</td><td>${esc(date)}</td><td>${esc(total)}</td><td>${badge}</td><td><button class="btn" style="padding:6px 10px;font-size:11px;" onclick="showDetailByKey('${key.replace(/'/g,"\\'")}')">Ver tudo</button></td>`;
     tbody.appendChild(tr);
   });
 }
 function filter(){
   const q=(document.getElementById('search').value||'').toLowerCase();
-  if(!q) return render(data);
-  const f=data.filter(({data:d})=>(d.candidate||'').toLowerCase().includes(q)||(d.email||'').toLowerCase().includes(q)||(d.phone||'').toLowerCase().includes(q)||(d.phoneDigits||'').includes(q.replace(/\D/g,''))||(d.track||'').toLowerCase().includes(q));
+  if(!q) return render(adminData);
+  const f=adminData.filter(({data:d})=>(d.candidate||'').toLowerCase().includes(q)||(d.email||'').toLowerCase().includes(q)||(d.phone||'').toLowerCase().includes(q)||(d.phoneDigits||'').includes(q.replace(/\D/g,''))||(d.track||'').toLowerCase().includes(q));
   render(f);
 }
+function showDetailByKey(key){
+  const idx=adminData.findIndex(x=>x.key===key);
+  if(idx===-1) return;
+  showDetail(idx);
+}
 function showDetail(idx){
-  const {data,key}=data[idx];
+  const entry=adminData[idx];
+  if(!entry){ alert('Registro não encontrado'); return; }
+  const {data,key}=entry;
   const detail=document.getElementById('detail');
   const total=data.finishedAt? formatHHMMSS((data.finishedAt-data.startedAt)/1000):'—';
   let html=`<div style="display:flex;justify-content:space-between;gap:12px;"><div><div class="mono" style="font-size:11px;color:#555;">${esc(key)}</div><h3>${esc(data.candidate||'-')} — ${esc(data.track||'-')}</h3><div class="mono" style="font-size:12px;color:#333;">E-mail: <b>${esc(data.email||'-')}</b> · WhatsApp: <b>${esc(data.phone||'-')}</b> · Data: ${esc(new Date(data.finishedAt||data.startedAt).toLocaleString('pt-BR'))} · Tempo: ${esc(total)} · Status: <b>${esc(data.status||'-')}</b> ${data.reason?'· '+esc(data.reason):''}<br>${data.ip?'IP: '+esc(data.ip)+' · ':''}${data.fp?'FP: '+esc(data.fp.slice(0,16)):''}</div></div><button class="btn" onclick="document.getElementById('detail').classList.add('hidden')">Fechar</button></div><div style="display:flex;gap:8px;margin:12px 0;flex-wrap:wrap;"><button class="btn" onclick="copyDetail(${idx})">Copiar</button><button class="btn" onclick="del(${idx})">Excluir</button><button class="btn" onclick="unban(${idx})">Desbanir</button></div><h3>Respostas (${(data.answers||[]).length})</h3>`;
@@ -150,23 +159,29 @@ function showDetail(idx){
   });
   detail.innerHTML=html;
   detail.classList.remove('hidden');
-  detail.scrollIntoView({behavior:'smooth'});
+  setTimeout(()=>detail.scrollIntoView({behavior:'smooth'}), 50);
 }
 function copyDetail(idx){
-  const {data}=data[idx];
+  const entry=adminData[idx];
+  if(!entry) return;
+  const data=entry.data;
   const txt=`CANDIDATO: ${data.candidate}\nE-MAIL: ${data.email||'-'}\nWHATSAPP: ${data.phone||'-'}\nTRILHA: ${data.track}\nDATA: ${new Date(data.finishedAt||data.startedAt).toLocaleString('pt-BR')}\nSTATUS: ${data.status}\n` + (data.answers||[]).map(a=>`[${a.code} ${a.type} ${a.status}]\n${a.prompt}\nRESPOSTA: ${a.text||'(vazia)'}\n`).join('\n---\n');
   navigator.clipboard.writeText(txt).then(()=>alert('Copiado!')).catch(()=>prompt('Copie:',txt));
 }
 async function del(idx){
   if(!confirm('Excluir?')) return;
-  const {key}=data[idx];
+  const entry=adminData[idx];
+  if(!entry) return;
+  const key=entry.key;
   try{ await window.storage.delete(key,false);}catch(e){}
   try{ localStorage.removeItem(key); sessionStorage.removeItem(key);}catch(e){}
-  data.splice(idx,1); render(data);
+  adminData.splice(idx,1); render(adminData);
   document.getElementById('detail').classList.add('hidden');
 }
 async function unban(idx){
-  const {data}=data[idx];
+  const entry=adminData[idx];
+  if(!entry) return;
+  const data=entry.data;
   if(!confirm('Desbanir '+data.candidate+'?')) return;
   const keys=[];
   if(data.email) keys.push('zaid_ban_email:'+data.email.toLowerCase());
@@ -179,20 +194,20 @@ async function unban(idx){
 }
 async function clearAll(){
   if(!confirm('Apagar TODAS as avaliações deste navegador?')) return;
-  for(const {key} of data){ try{ await window.storage.delete(key,false);}catch(e){} try{ localStorage.removeItem(key);}catch(e){} }
+  for(const {key} of adminData){ try{ await window.storage.delete(key,false);}catch(e){} try{ localStorage.removeItem(key);}catch(e){} }
   load();
   document.getElementById('detail').classList.add('hidden');
 }
 function exportCSV(){
-  if(!data.length) return alert('Nada');
+  if(!adminData.length) return alert('Nada');
   const headers=['nome','email','telefone','trilha','data','tempo','status','ip','respostas'];
-  const rows=data.map(({data:d})=> [d.candidate||'',d.email||'',d.phone||'',d.track||'', new Date(d.finishedAt||d.startedAt).toISOString(), d.finishedAt?Math.round((d.finishedAt-d.startedAt)/1000):'', d.status||'', d.ip||'', (d.answers||[]).map(a=>a.code+': '+(a.text||'').replace(/"/g,'""').slice(0,120)).join(' | ') ]);
+  const rows=adminData.map(({data:d})=> [d.candidate||'',d.email||'',d.phone||'',d.track||'', new Date(d.finishedAt||d.startedAt).toISOString(), d.finishedAt?Math.round((d.finishedAt-d.startedAt)/1000):'', d.status||'', d.ip||'', (d.answers||[]).map(a=>a.code+': '+(a.text||'').replace(/"/g,'""').slice(0,120)).join(' | ') ]);
   const csv=[headers.join(','), ...rows.map(r=>r.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(','))].join('\n');
   const blob=new Blob([csv],{type:'text/csv'}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download='zaid-admin-'+Date.now()+'.csv'; a.click(); setTimeout(()=>URL.revokeObjectURL(url),1000);
 }
 function exportJSON(){
-  if(!data.length) return alert('Nada');
-  const blob=new Blob([JSON.stringify(data.map(d=>d.data),null,2)],{type:'application/json'}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download='zaid-admin-'+Date.now()+'.json'; a.click(); setTimeout(()=>URL.revokeObjectURL(url),1000);
+  if(!adminData.length) return alert('Nada');
+  const blob=new Blob([JSON.stringify(adminData.map(d=>d.data),null,2)],{type:'application/json'}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download='zaid-admin-'+Date.now()+'.json'; a.click(); setTimeout(()=>URL.revokeObjectURL(url),1000);
 }
 document.getElementById('pass').addEventListener('keydown',e=>{ if(e.key==='Enter') doLogin(); });
 </script>
