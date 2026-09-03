@@ -113,7 +113,36 @@ async function load(){
     }catch(e){}
   }
   all.sort((a,b)=>(b.data.finishedAt||b.data.startedAt||0)-(a.data.finishedAt||a.data.startedAt||0));
-  adminData=all;
+  // deduplica: mesmo candidato/email/track/finishedAt aparece como draft + eval — mantém só o eval
+  const seen=new Map();
+  const dedup=[];
+  for(const item of all){
+    const d=item.data;
+    const uniq=(d.candidate||'')+'|'+(d.email||'')+'|'+(d.track||'')+'|'+(d.finishedAt||d.startedAt||'');
+    if(!seen.has(uniq)){
+      seen.set(uniq, item);
+      dedup.push(item);
+    } else {
+      // prefere zaid_eval sobre zaid_draft
+      const prev=seen.get(uniq);
+      const curIsEval=item.key.startsWith('zaid_eval:');
+      const prevIsEval=prev.key.startsWith('zaid_eval:');
+      if(curIsEval && !prevIsEval){
+        const idx=dedup.indexOf(prev);
+        if(idx!==-1) dedup[idx]=item;
+        seen.set(uniq, item);
+      }
+    }
+  }
+  adminData=dedup;
+  // limpa duplicatas do tipo draft que já viraram eval (apaga do storage para não voltar)
+  const removed=all.filter(x=> !dedup.includes(x));
+  for(const r of removed){
+    if(r.key.startsWith('zaid_draft:')){
+      try{ await window.storage.delete(r.key,false);}catch(e){}
+      try{ localStorage.removeItem(r.key); sessionStorage.removeItem(r.key);}catch(e){}
+    }
+  }
   render(all);
   document.getElementById('total').textContent=all.length;
   document.getElementById('ok').textContent=all.filter(x=>x.data.status==='finished').length;

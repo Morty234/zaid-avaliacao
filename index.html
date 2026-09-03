@@ -1544,10 +1544,18 @@ function escapeHtml(str){
 async function saveReport(){
   try{
     const key = 'zaid_eval:'+state.track+':'+slug(state.candidate)+':'+state.finishedAt;
-    await window.storage.set(key, JSON.stringify(state), false);
-    // clear draft since evaluation is now finalized
-    const draftKey = 'zaid_draft:'+state.track+':'+slug(state.candidate);
-    try{ await window.storage.delete(draftKey, false); }catch(e){}
+    const payload=JSON.stringify(state);
+    await window.storage.set(key, payload, false);
+    try{ localStorage.setItem(key, payload); }catch(e){}
+    // clear draft since evaluation is now finalized — apaga tanto chave antiga quanto nova (com email) para não duplicar no admin
+    const draftKeys=[
+      'zaid_draft:'+state.track+':'+slug(state.candidate),
+      'zaid_draft:'+state.track+':'+slug(state.candidate)+':'+slug(state.email||'')
+    ];
+    for(const dk of draftKeys){
+      try{ await window.storage.delete(dk, false); }catch(e){}
+      try{ localStorage.removeItem(dk); sessionStorage.removeItem(dk); }catch(e){}
+    }
     document.getElementById('saveMsg').style.display = 'block';
   }catch(e){
     alert('Não foi possível salvar a avaliação neste navegador. Tente novamente.');
@@ -2123,15 +2131,39 @@ async function loadAdminData(){
   }
   // ordena por data decrescente
   all.sort((a,b)=> (b.data.finishedAt||b.data.startedAt||0) - (a.data.finishedAt||a.data.startedAt||0));
-  adminData=all;
-  renderAdminTable(all);
+  // deduplica: mesmo candidato/email/track/finishedAt (draft + eval duplicado) — mantém só eval
+  const seen=new Map(); const dedup=[];
+  for(const item of all){
+    const d=item.data;
+    const uniq=(d.candidate||'')+'|'+(d.email||'')+'|'+(d.track||'')+'|'+(d.finishedAt||d.startedAt||'');
+    if(!seen.has(uniq)){ seen.set(uniq,item); dedup.push(item); }
+    else {
+      const prev=seen.get(uniq);
+      const curIsEval=item.key.startsWith('zaid_eval:');
+      const prevIsEval=prev.key.startsWith('zaid_eval:');
+      if(curIsEval && !prevIsEval){
+        const idx=dedup.indexOf(prev);
+        if(idx!==-1) dedup[idx]=item;
+        seen.set(uniq,item);
+      }
+    }
+  }
+  adminData=dedup;
+  // limpa duplicatas draft que já viraram eval
+  const removed=all.filter(x=> !dedup.includes(x));
+  for(const r of removed){
+    if(r.key.startsWith('zaid_draft:')){
+      try{ await window.storage.delete(r.key,false);}catch(e){}
+      try{ localStorage.removeItem(r.key); sessionStorage.removeItem(r.key);}catch(e){}
+    }
+  }
+  renderAdminTable(dedup);
   // contadores
   try{
-    document.getElementById('adminTotal').textContent=all.length;
-    document.getElementById('adminOk').textContent=all.filter(x=>x.data.status==='finished'||x.data.status==='done'||x.data.status==='active'&&x.data.answers&&x.data.answers.some(a=>a.text)).length;
-    document.getElementById('adminBan').textContent=all.filter(x=>x.data.status==='disqualified').length;
-    // drafts = sem finishedAt e status active mas não finalizado
-    document.getElementById('adminDraft').textContent=all.filter(x=>!x.data.finishedAt && x.data.status!=='disqualified').length;
+    document.getElementById('adminTotal').textContent=dedup.length;
+    document.getElementById('adminOk').textContent=dedup.filter(x=>x.data.status==='finished').length;
+    document.getElementById('adminBan').textContent=dedup.filter(x=>x.data.status==='disqualified').length;
+    document.getElementById('adminDraft').textContent=dedup.filter(x=>!x.data.finishedAt && x.data.status!=='disqualified').length;
   }catch(e){}
 }
 function renderAdminTable(list){
