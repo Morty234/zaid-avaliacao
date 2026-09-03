@@ -113,17 +113,18 @@ async function load(){
     }catch(e){}
   }
   all.sort((a,b)=>(b.data.finishedAt||b.data.startedAt||0)-(a.data.finishedAt||a.data.startedAt||0));
-  // deduplica: mesmo candidato/email/track/finishedAt aparece como draft + eval — mantém só o eval
+  // deduplica FORTE por pessoa: mesmo nome+email+trilha aparece 2x (draft+eval ou duplo clique) — mantém só o MAIS RECENTE
   const seen=new Map();
   const dedup=[];
   for(const item of all){
     const d=item.data;
-    const uniq=(d.candidate||'')+'|'+(d.email||'')+'|'+(d.track||'')+'|'+(d.finishedAt||d.startedAt||'');
+    const uniq=(d.candidate||'').toLowerCase().trim()+'|'+(d.email||'').toLowerCase().trim()+'|'+(d.track||'');
     if(!seen.has(uniq)){
       seen.set(uniq, item);
       dedup.push(item);
     } else {
-      // prefere zaid_eval sobre zaid_draft
+      // já existe alguém com mesmo nome+email+trilha — mantém o mais recente (all já ordenado desc, então primeiro é o mais novo; ignora duplicata)
+      // se o anterior era rascunho e o atual é eval, troca
       const prev=seen.get(uniq);
       const curIsEval=item.key.startsWith('zaid_eval:');
       const prevIsEval=prev.key.startsWith('zaid_eval:');
@@ -132,16 +133,15 @@ async function load(){
         if(idx!==-1) dedup[idx]=item;
         seen.set(uniq, item);
       }
+      // caso contrário, descarta o duplicado
     }
   }
   adminData=dedup;
-  // limpa duplicatas do tipo draft que já viraram eval (apaga do storage para não voltar)
+  // limpa duplicatas do storage para não voltar (qualquer duplicata, draft ou eval duplicado)
   const removed=all.filter(x=> !dedup.includes(x));
   for(const r of removed){
-    if(r.key.startsWith('zaid_draft:')){
-      try{ await window.storage.delete(r.key,false);}catch(e){}
-      try{ localStorage.removeItem(r.key); sessionStorage.removeItem(r.key);}catch(e){}
-    }
+    try{ await window.storage.delete(r.key,false);}catch(e){}
+    try{ localStorage.removeItem(r.key); sessionStorage.removeItem(r.key);}catch(e){}
   }
   render(all);
   document.getElementById('total').textContent=all.length;

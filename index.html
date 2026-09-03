@@ -1542,7 +1542,28 @@ function escapeHtml(str){
 }
 
 async function saveReport(){
+  if(window._isSaving) return;
+  window._isSaving=true;
+  const btn=document.querySelector('#report .report-actions .btn-primary');
+  if(btn) btn.disabled=true;
   try{
+    // evita duplicata por duplo clique: se já existe eval para mesma pessoa nos últimos 10s, não cria outro
+    const recentKeyPrefix='zaid_eval:'+state.track+':'+slug(state.candidate);
+    try{
+      for(let i=0;i<localStorage.length;i++){
+        const k=localStorage.key(i);
+        if(k && k.startsWith(recentKeyPrefix)){
+          const v=JSON.parse(localStorage.getItem(k)||'{}');
+          if(v && v.email===state.email && v.finishedAt && Math.abs(v.finishedAt - state.finishedAt) < 10000){
+            document.getElementById('saveMsg').textContent='Avaliação já salva. Ver em "Ver avaliações salvas".';
+            document.getElementById('saveMsg').style.display='block';
+            window._isSaving=false;
+            if(btn) btn.disabled=false;
+            return;
+          }
+        }
+      }
+    }catch(e){}
     const key = 'zaid_eval:'+state.track+':'+slug(state.candidate)+':'+state.finishedAt;
     const payload=JSON.stringify(state);
     await window.storage.set(key, payload, false);
@@ -1556,9 +1577,13 @@ async function saveReport(){
       try{ await window.storage.delete(dk, false); }catch(e){}
       try{ localStorage.removeItem(dk); sessionStorage.removeItem(dk); }catch(e){}
     }
+    document.getElementById('saveMsg').textContent='Avaliação salva localmente. Disponível em "Ver avaliações salvas" e no Admin.';
     document.getElementById('saveMsg').style.display = 'block';
   }catch(e){
     alert('Não foi possível salvar a avaliação neste navegador. Tente novamente.');
+  } finally {
+    window._isSaving=false;
+    if(btn) btn.disabled=false;
   }
 }
 
@@ -2131,11 +2156,11 @@ async function loadAdminData(){
   }
   // ordena por data decrescente
   all.sort((a,b)=> (b.data.finishedAt||b.data.startedAt||0) - (a.data.finishedAt||a.data.startedAt||0));
-  // deduplica: mesmo candidato/email/track/finishedAt (draft + eval duplicado) — mantém só eval
+  // deduplica FORTE por pessoa: mesmo nome+email+trilha — mantém só o MAIS RECENTE (evita 2 iguais por duplo clique)
   const seen=new Map(); const dedup=[];
   for(const item of all){
     const d=item.data;
-    const uniq=(d.candidate||'')+'|'+(d.email||'')+'|'+(d.track||'')+'|'+(d.finishedAt||d.startedAt||'');
+    const uniq=(d.candidate||'').toLowerCase().trim()+'|'+(d.email||'').toLowerCase().trim()+'|'+(d.track||'');
     if(!seen.has(uniq)){ seen.set(uniq,item); dedup.push(item); }
     else {
       const prev=seen.get(uniq);
@@ -2149,13 +2174,11 @@ async function loadAdminData(){
     }
   }
   adminData=dedup;
-  // limpa duplicatas draft que já viraram eval
+  // limpa qualquer duplicata que sobrou (draft ou eval duplicado por duplo clique)
   const removed=all.filter(x=> !dedup.includes(x));
   for(const r of removed){
-    if(r.key.startsWith('zaid_draft:')){
-      try{ await window.storage.delete(r.key,false);}catch(e){}
-      try{ localStorage.removeItem(r.key); sessionStorage.removeItem(r.key);}catch(e){}
-    }
+    try{ await window.storage.delete(r.key,false);}catch(e){}
+    try{ localStorage.removeItem(r.key); sessionStorage.removeItem(r.key);}catch(e){}
   }
   renderAdminTable(dedup);
   // contadores
