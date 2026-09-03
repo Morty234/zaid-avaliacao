@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZAID — Painel Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--line:#D6D6D6;--line-soft:#EAEAEA;--text:#0A0A0A;--dim:#5A5A5A;--faint:#9A9A9A;}
+*{box-sizing:border-box;}html,body{margin:0;padding:0;font-family:'IBM Plex Sans',sans-serif;background:#FFF;color:#0A0A0A;line-height:1.6;}
+.mono{font-family:'IBM Plex Mono',monospace;}
+.stamp{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.08em;color:#000;border:1px solid #6B6B6B;padding:3px 8px;}
+.btn{font-family:'IBM Plex Sans',sans-serif;cursor:pointer;padding:10px 14px;border:1px solid #000;background:#FFF;color:#000;font-size:13px;}
+.btn.primary{background:#000;color:#FFF;font-weight:600;}
+.btn:disabled{opacity:0.4;cursor:not-allowed;}
+.card{max-width:1100px;margin:0 auto;padding:24px;}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0;align-items:center;}
+.toolbar input{flex:1;min-width:200px;padding:10px 12px;border:1px solid #000;font-size:13px;}
+.table-wrap{overflow:auto;max-height:55vh;border:1px solid #000;margin-top:12px;}
+table{width:100%;border-collapse:collapse;font-size:13px;}
+th{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.06em;text-align:left;padding:10px 8px;border-bottom:2px solid #000;background:#F2F2F2;white-space:nowrap;position:sticky;top:0;}
+td{padding:10px 8px;border-bottom:1px solid #EAEAEA;vertical-align:top;max-width:220px;word-break:break-word;}
+tr:hover{background:#F9F9F9;}
+.badge{font-family:'IBM Plex Mono',monospace;font-size:10px;padding:3px 6px;border:1px solid #000;display:inline-block;}
+.badge.ban{background:#000;color:#FFF;} .badge.ok{background:#FFF;color:#000;} .badge.pending{background:#F2F2F2;color:#555;}
+.detail{border:2px solid #000;padding:20px;margin-top:18px;background:#FFF;}
+.detail h3{font-family:'Newsreader',serif;font-size:18px;margin:10px 0 8px;}
+.answer{border:1px solid #D6D6D6;padding:12px;margin:10px 0;background:#F9F9F9;white-space:pre-wrap;font-size:13px;}
+.answer.empty{color:#9A9A9A;font-style:italic;}
+.site-logo{max-width:150px;height:auto;display:block;margin:0 0 14px 0;}
+.login{max-width:520px;margin:60px auto;padding:32px;border:2px solid #000;background:#FFF;}
+.login input{width:100%;padding:11px 12px;border:1px solid #000;font-size:14px;margin:10px 0;}
+.hidden{display:none !important;}
+</style>
+</head>
+<body>
+<div id="login" class="login">
+  <img src="ZAID.png" alt="ZAID" class="site-logo" onerror="this.style.display='none'">
+  <span class="stamp">PAINEL ADMIN — CONFIDENCIAL</span>
+  <h1 style="font-family:'Newsreader',serif;font-size:26px;margin:10px 0 6px;">Acesso Admin</h1>
+  <p class="mono" style="font-size:12px;color:#555;">Veja <b style="color:#000;">nome, e-mail, WhatsApp, trilha, tempo, status e todas as respostas</b>. Senha: <span class="mono" style="background:#F2F2F2;padding:2px 6px;border:1px solid #000;">adminzaid2026</span> (ou <span class="mono">zaid2026</span>)</p>
+  <input type="password" id="pass" placeholder="Digite a senha admin">
+  <button class="btn primary" style="width:100%;" onclick="doLogin()">Entrar no Admin</button>
+  <p class="mono" style="font-size:11px;color:#555;margin-top:10px;"><a href="index.html" style="color:#000;">← Voltar para a prova</a></p>
+  <div id="loginErr" class="mono" style="color:#000;background:#FFF5F5;border:1px solid #000;padding:8px;margin-top:10px;display:none;">Senha incorreta.</div>
+</div>
+
+<div id="panel" class="hidden">
+  <div class="card">
+    <img src="ZAID.png" alt="ZAID" class="site-logo" onerror="this.style.display='none'">
+    <span class="stamp">PAINEL ADMIN — TODOS OS PARTICIPANTES</span>
+    <h1 style="font-family:'Newsreader',serif;font-size:26px;margin:10px 0 6px;">Todas as Avaliações</h1>
+    <p class="mono" style="font-size:12px;color:#555;">Dados deste navegador (localStorage + IndexedDB). Para ver participantes de outros PCs, precisa de servidor central — este painel mostra o que foi salvo <b style="color:#000;">neste dispositivo</b>. Exporte CSV para juntar.</p>
+    <div class="toolbar">
+      <input type="text" id="search" placeholder="Buscar por nome, e-mail, telefone ou trilha..." oninput="filter()">
+      <button class="btn" onclick="load()">↻ Atualizar</button>
+      <button class="btn" onclick="exportCSV()">⬇ CSV</button>
+      <button class="btn" onclick="exportJSON()">⬇ JSON</button>
+      <button class="btn" onclick="clearAll()" style="border-color:#000;background:#FFF5F5;">🗑 Limpar tudo</button>
+      <button class="btn" style="margin-left:auto;" onclick="logout()">Sair</button>
+    </div>
+    <div class="mono" style="font-size:11px;color:#555;display:flex;gap:16px;flex-wrap:wrap;">
+      <span>Total: <b id="total" style="color:#000;">0</b></span>
+      <span>Concluídos: <b id="ok" style="color:#000;">0</b></span>
+      <span>Banidos: <b id="ban" style="color:#000;">0</b></span>
+      <span>Rascunhos: <b id="draft" style="color:#000;">0</b></span>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Nome</th><th>E-mail</th><th>WhatsApp</th><th>Trilha</th><th>Data</th><th>Tempo</th><th>Status</th><th>Ação</th></tr></thead>
+        <tbody id="tbody"><tr><td colspan="8" style="text-align:center;color:#9A9A9A;padding:20px;">Carregando...</td></tr></tbody>
+      </table>
+    </div>
+    <div id="detail" class="detail hidden"></div>
+  </div>
+</div>
+
+<script>
+const ADMIN_PASS="adminzaid2026";
+const EVAL_PASS="zaid2026";
+function doLogin(){
+  const p=document.getElementById('pass').value;
+  if(p===ADMIN_PASS || p===EVAL_PASS){
+    document.getElementById('login').classList.add('hidden');
+    document.getElementById('panel').classList.remove('hidden');
+    load();
+  }else{
+    document.getElementById('loginErr').style.display='block';
+  }
+}
+function logout(){ document.getElementById('panel').classList.add('hidden'); document.getElementById('login').classList.remove('hidden'); document.getElementById('pass').value=''; }
+function slug(s){ return (s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,''); }
+function formatMMSS(s){ s=Math.max(0,Math.round(s)); const m=Math.floor(s/60).toString().padStart(2,'0'); const sec=(s%60).toString().padStart(2,'0'); return m+':'+sec; }
+function formatHHMMSS(s){ s=Math.max(0,Math.round(s)); const h=Math.floor(s/3600).toString().padStart(2,'0'); const m=Math.floor((s%3600)/60).toString().padStart(2,'0'); const sec=(s%60).toString().padStart(2,'0'); return h+':'+m+':'+sec; }
+function esc(s){ const d=document.createElement('div'); d.textContent=s||''; return d.innerHTML; }
+let data=[];
+async function load(){
+  const tbody=document.getElementById('tbody');
+  tbody.innerHTML='<tr><td colspan="8" style="text-align:center;color:#9A9A9A;padding:20px;">Carregando...</td></tr>';
+  data=[];
+  const keys=new Set();
+  try{ const r=await window.storage.list('zaid_eval:', false); (r.keys||[]).forEach(k=>keys.add(k)); }catch(e){}
+  try{ for(let i=0;i<localStorage.length;i++){ const k=localStorage.key(i); if(k&&k.startsWith('zaid_eval:')) keys.add(k); } }catch(e){}
+  try{ for(let i=0;i<sessionStorage.length;i++){ const k=sessionStorage.key(i); if(k&&k.startsWith('zaid_eval:')) keys.add(k); } }catch(e){}
+  try{ const r=await window.storage.list('zaid_draft:', false); (r.keys||[]).forEach(k=>keys.add(k)); }catch(e){}
+  try{ for(let i=0;i<localStorage.length;i++){ const k=localStorage.key(i); if(k&&k.startsWith('zaid_draft:')) keys.add(k); } }catch(e){}
+  const all=[];
+  for(const k of keys){
+    try{
+      let rec=null; try{ rec=await window.storage.get(k,false);}catch(e){}
+      let d=null; if(rec&&rec.value) d=JSON.parse(rec.value); else{ const v=localStorage.getItem(k)||sessionStorage.getItem(k); if(v) d=JSON.parse(v); }
+      if(d&&d.candidate) all.push({key:k, data:d});
+    }catch(e){}
+  }
+  all.sort((a,b)=>(b.data.finishedAt||b.data.startedAt||0)-(a.data.finishedAt||a.data.startedAt||0));
+  data=all;
+  render(all);
+  document.getElementById('total').textContent=all.length;
+  document.getElementById('ok').textContent=all.filter(x=>x.data.status==='finished').length;
+  document.getElementById('ban').textContent=all.filter(x=>x.data.status==='disqualified').length;
+  document.getElementById('draft').textContent=all.filter(x=>!x.data.finishedAt && x.data.status!=='disqualified').length;
+}
+function render(list){
+  const tbody=document.getElementById('tbody');
+  if(!list.length){ tbody.innerHTML='<tr><td colspan="8" style="text-align:center;color:#9A9A9A;padding:20px;">Nenhuma avaliação neste navegador. As respostas ficam salvas onde o candidato fez a prova.</td></tr>'; return; }
+  tbody.innerHTML='';
+  list.forEach(({key,data}, idx)=>{
+    const date=new Date(data.finishedAt||data.startedAt).toLocaleString('pt-BR');
+    const total=data.finishedAt? formatHHMMSS((data.finishedAt-data.startedAt)/1000) : '—';
+    const badge=data.status==='disqualified'?'<span class="badge ban">BANIDO</span>': data.status==='finished'?'<span class="badge ok">CONCLUÍDO</span>':'<span class="badge pending">'+esc(data.status||'RASCUNHO')+'</span>';
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td><b>${esc(data.candidate||'-')}</b></td><td>${esc(data.email||'-')}</td><td>${esc(data.phone||data.phoneDigits||'-')}</td><td>${esc(data.track||'-')}</td><td>${esc(date)}</td><td>${esc(total)}</td><td>${badge}</td><td><button class="btn" style="padding:6px 10px;font-size:11px;" onclick="showDetail(${idx})">Ver tudo</button></td>`;
+    tbody.appendChild(tr);
+  });
+}
+function filter(){
+  const q=(document.getElementById('search').value||'').toLowerCase();
+  if(!q) return render(data);
+  const f=data.filter(({data:d})=>(d.candidate||'').toLowerCase().includes(q)||(d.email||'').toLowerCase().includes(q)||(d.phone||'').toLowerCase().includes(q)||(d.phoneDigits||'').includes(q.replace(/\D/g,''))||(d.track||'').toLowerCase().includes(q));
+  render(f);
+}
+function showDetail(idx){
+  const {data,key}=data[idx];
+  const detail=document.getElementById('detail');
+  const total=data.finishedAt? formatHHMMSS((data.finishedAt-data.startedAt)/1000):'—';
+  let html=`<div style="display:flex;justify-content:space-between;gap:12px;"><div><div class="mono" style="font-size:11px;color:#555;">${esc(key)}</div><h3>${esc(data.candidate||'-')} — ${esc(data.track||'-')}</h3><div class="mono" style="font-size:12px;color:#333;">E-mail: <b>${esc(data.email||'-')}</b> · WhatsApp: <b>${esc(data.phone||'-')}</b> · Data: ${esc(new Date(data.finishedAt||data.startedAt).toLocaleString('pt-BR'))} · Tempo: ${esc(total)} · Status: <b>${esc(data.status||'-')}</b> ${data.reason?'· '+esc(data.reason):''}<br>${data.ip?'IP: '+esc(data.ip)+' · ':''}${data.fp?'FP: '+esc(data.fp.slice(0,16)):''}</div></div><button class="btn" onclick="document.getElementById('detail').classList.add('hidden')">Fechar</button></div><div style="display:flex;gap:8px;margin:12px 0;flex-wrap:wrap;"><button class="btn" onclick="copyDetail(${idx})">Copiar</button><button class="btn" onclick="del(${idx})">Excluir</button><button class="btn" onclick="unban(${idx})">Desbanir</button></div><h3>Respostas (${(data.answers||[]).length})</h3>`;
+  (data.answers||[]).forEach(a=>{
+    const ok=a.text&&a.text.trim().length>0;
+    html+=`<div class="answer ${ok?'':'empty'}"><div style="display:flex;justify-content:space-between;"><b>${esc(a.code)} — ${esc(a.type)}</b><span class="mono" style="font-size:11px;color:#555;">${esc(a.status)} · ${formatMMSS(a.timeSpent||0)}/${formatMMSS(a.limit||0)}</span></div><div style="font-size:12px;color:#555;margin:6px 0;">${esc(a.prompt||'')}</div><div style="border-top:1px solid #EAEAEA;margin-top:8px;padding-top:8px;white-space:pre-wrap;">${ok?esc(a.text):'<i>Sem resposta</i>'}</div></div>`;
+  });
+  detail.innerHTML=html;
+  detail.classList.remove('hidden');
+  detail.scrollIntoView({behavior:'smooth'});
+}
+function copyDetail(idx){
+  const {data}=data[idx];
+  const txt=`CANDIDATO: ${data.candidate}\nE-MAIL: ${data.email||'-'}\nWHATSAPP: ${data.phone||'-'}\nTRILHA: ${data.track}\nDATA: ${new Date(data.finishedAt||data.startedAt).toLocaleString('pt-BR')}\nSTATUS: ${data.status}\n` + (data.answers||[]).map(a=>`[${a.code} ${a.type} ${a.status}]\n${a.prompt}\nRESPOSTA: ${a.text||'(vazia)'}\n`).join('\n---\n');
+  navigator.clipboard.writeText(txt).then(()=>alert('Copiado!')).catch(()=>prompt('Copie:',txt));
+}
+async function del(idx){
+  if(!confirm('Excluir?')) return;
+  const {key}=data[idx];
+  try{ await window.storage.delete(key,false);}catch(e){}
+  try{ localStorage.removeItem(key); sessionStorage.removeItem(key);}catch(e){}
+  data.splice(idx,1); render(data);
+  document.getElementById('detail').classList.add('hidden');
+}
+async function unban(idx){
+  const {data}=data[idx];
+  if(!confirm('Desbanir '+data.candidate+'?')) return;
+  const keys=[];
+  if(data.email) keys.push('zaid_ban_email:'+data.email.toLowerCase());
+  if(data.phoneDigits) keys.push('zaid_ban_phone:'+data.phoneDigits);
+  if(data.candidate&&data.track) keys.push('zaid_ban:'+data.track+':'+slug(data.candidate));
+  if(data.ip) keys.push('zaid_ipban:'+data.ip);
+  if(data.fp) keys.push('zaid_fpban:'+data.fp);
+  for(const k of keys){ try{ await window.storage.delete(k,false);}catch(e){} try{ localStorage.removeItem(k); sessionStorage.removeItem(k);}catch(e){} }
+  alert('Desbanido: '+keys.join(', '));
+}
+async function clearAll(){
+  if(!confirm('Apagar TODAS as avaliações deste navegador?')) return;
+  for(const {key} of data){ try{ await window.storage.delete(key,false);}catch(e){} try{ localStorage.removeItem(key);}catch(e){} }
+  load();
+  document.getElementById('detail').classList.add('hidden');
+}
+function exportCSV(){
+  if(!data.length) return alert('Nada');
+  const headers=['nome','email','telefone','trilha','data','tempo','status','ip','respostas'];
+  const rows=data.map(({data:d})=> [d.candidate||'',d.email||'',d.phone||'',d.track||'', new Date(d.finishedAt||d.startedAt).toISOString(), d.finishedAt?Math.round((d.finishedAt-d.startedAt)/1000):'', d.status||'', d.ip||'', (d.answers||[]).map(a=>a.code+': '+(a.text||'').replace(/"/g,'""').slice(0,120)).join(' | ') ]);
+  const csv=[headers.join(','), ...rows.map(r=>r.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(','))].join('\n');
+  const blob=new Blob([csv],{type:'text/csv'}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download='zaid-admin-'+Date.now()+'.csv'; a.click(); setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+function exportJSON(){
+  if(!data.length) return alert('Nada');
+  const blob=new Blob([JSON.stringify(data.map(d=>d.data),null,2)],{type:'application/json'}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download='zaid-admin-'+Date.now()+'.json'; a.click(); setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+document.getElementById('pass').addEventListener('keydown',e=>{ if(e.key==='Enter') doLogin(); });
+</script>
+</body>
+</html>
